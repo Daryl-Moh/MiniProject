@@ -1,7 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { timeout } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

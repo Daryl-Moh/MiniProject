@@ -28,7 +28,7 @@ export class AuthService {
     }
 
     register(givenname: string, familyname: string, email: string, password: string): Promise<any> {
-        const body = { givenname, familyname, email, password, isGoogleLogin: false }
+        const body = { givenname, familyname, email, password }
         return firstValueFrom(
             this.http.post<any>("/api/auth/register", body)
         )
@@ -38,15 +38,6 @@ export class AuthService {
         const body = { email, password }
         return firstValueFrom(
             this.http.post<any>("/api/auth/login", body)
-        )
-    }
-
-    googleRegister(credentials: string): Promise<any> {
-        console.info(credentials)
-        const headers = new HttpHeaders()
-            .set("Content-type", "application/json")
-        return firstValueFrom(
-            this.http.post("/api/auth/googlelogin", credentials, { headers })
         )
     }
 

@@ -1,1 +1,37 @@
-<p>login works!</p>
+<div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <table>
+            <tbody>
+                <tr>
+                    <mat-form-field appearance="fill">
+                        <mat-label>E-mail</mat-label>
+                        <input type="email" matInput formControlName="email">
+                        <mat-error *ngIf="loginForm.invalid">E-mail is mandatory</mat-error>
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <mat-form-field hintLabel="Min 8 characters" appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput #input minlength="8" formControlName="password">
+                        <mat-hint align="end">{{input.value.length}}/8</mat-hint>
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <td>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="centerbox">
+                            <button type="submit" mat-raised-button [disabled]="loginForm.invalid">
+                                Register
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
