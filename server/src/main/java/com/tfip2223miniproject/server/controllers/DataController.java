@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfip2223miniproject.server.models.Stock;
+import com.tfip2223miniproject.server.models.StockOverview;
 import com.tfip2223miniproject.server.services.StockService;
 import com.tfip2223miniproject.server.utils.Utils;
 
@@ -48,4 +49,25 @@ public class DataController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(result.toString());
         }
+
+    @GetMapping(path="/overview/{stockName}")
+    public ResponseEntity<String> getStockOverview(
+        @RequestHeader(name = "Authorization") String token,
+        @PathVariable(required=true) String stockName) throws IOException {
+            
+            JsonArray result = null;
+            Optional<StockOverview> optListStock = this.stockSvc.getStockOverview(stockName);
+            StockOverview results = optListStock.get();
+            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+                arrBuilder.add(Utils.toJSON(results));
+            result = arrBuilder.build();
+            System.out.println("searching stock overview by name >>>" + stockName);
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(result.toString());
+
+
+        }
+    
 }

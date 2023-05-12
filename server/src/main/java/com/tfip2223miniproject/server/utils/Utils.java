@@ -7,7 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.el.stream.Stream;
+
 import com.tfip2223miniproject.server.models.Stock;
+import com.tfip2223miniproject.server.models.StockOverview;
 import com.tfip2223miniproject.server.models.User;
 
 import jakarta.json.Json;
@@ -46,6 +49,24 @@ public class Utils {
         return JsonObj;
     }
 
+    public static JsonObject toJSON(StockOverview so) {
+        JsonObject JsonObj = Json.createObjectBuilder()
+            .add("symbol", so.getSymbol())
+            .add("name", so.getName())
+            .add("description", so.getDescription())
+            .add("exchange", so.getExchange())
+            .add("country", so.getCountry())
+            .add("sector", so.getSector())
+            .add("industry", so.getIndustry())
+            .add("dividendPerShare", so.getDividendPerShare())
+            .add("dividendYield", so.getDividendYield())
+            .add("52WeekHigh", so.getFiftyTwoWeekHigh())
+            .add("52WeekLow", so.getFiftyTwoWeekLow())
+            .build();
+
+        return JsonObj;
+    }
+
     public static Optional<List<Stock>> createListOfStocks (String json) throws IOException {
         List<Stock> stockList = new LinkedList<>();
 
@@ -67,4 +88,23 @@ public class Utils {
             return Optional.of(stockList);
         return Optional.empty();
     }
+
+    public static Optional<StockOverview> createStockOverview (String json) throws IOException {
+        StockOverview stkovr = new StockOverview();
+
+        try (InputStream is = new ByteArrayInputStream(json.getBytes())) {
+            JsonReader r = Json.createReader(is);
+            JsonObject obj = r.readObject();
+
+            stkovr = stkovr.create(obj.asJsonObject());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(stkovr != null)
+            return Optional.of(stkovr);
+        return Optional.empty();
+    }
+
 }
