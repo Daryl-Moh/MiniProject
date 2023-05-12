@@ -23,8 +23,8 @@ import jakarta.json.JsonObject;
 @Service
 public class JwtService {
 
-    // Set the expiry duration to 1 hours
-    private static final Long expDuration = 1000l * 60 * 60 * 1;
+    // Set the expiry duration to 5 hours
+    private static final Long expDuration = 1000l * 60 * 60 * 5;
 
     @Value("${sha256.secret}")
     private String sha256Secret;
