@@ -2,30 +2,43 @@
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>{{stockName}}</mat-card-title>
-        <mat-card-subtitle><button mat-raised-button type="button" (click)="addToPortfolio()">Add to portfolio</button></mat-card-subtitle>
+        
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
-        {{stockOverview.name}}
         <br>
-        {{stockOverview.description}}
+        Name: {{stockOverview.name}}
         <br>
-        {{stockOverview.exchange}}
         <br>
-        {{stockOverview.country}}
+        Description: {{stockOverview.description}}
         <br>
-        {{stockOverview.sector}}
         <br>
-        {{stockOverview.industry}}
+        Exchange: {{stockOverview.exchange}}
         <br>
-        {{stockOverview.dividendPerShare}}
         <br>
-        {{stockOverview.dividendYield}}
+        Country: {{stockOverview.country}}
         <br>
-        {{stockOverview.fiftyTwoWeekHigh}}
         <br>
-        {{stockOverview.fiftyTwoWeekLow}}
+        Sector: {{stockOverview.sector}}
+        <br>
+        <br>
+        Industry: {{stockOverview.industry}}
+        <br>
+        <br>
+        Dividend Per Share: {{stockOverview.dividendPerShare}}
+        <br>
+        <br>
+        Dividend Yield: {{stockOverview.dividendYield}}
+        <br>
+        <br>
+        52 Week High: {{stockOverview.fiftyTwoWeekHigh}}
+        <br>
+        <br>
+        52 Week Low: {{stockOverview.fiftyTwoWeekLow}}
+        <br>
+        <br>
     </mat-card-content>
+    <mat-card-subtitle><button mat-raised-button type="button" (click)="addToPortfolio()">Add to portfolio</button></mat-card-subtitle>
   </mat-card>
 
 

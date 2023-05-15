@@ -14,7 +14,6 @@ export class ListComponent implements OnInit{
   stockName = "";
   param$!: Subscription;
   stocks!: Stock[];
-  // characters!: Character[];
   currentIndex!: number;
 
   constructor(
