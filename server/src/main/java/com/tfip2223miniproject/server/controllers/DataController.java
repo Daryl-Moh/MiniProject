@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfip2223miniproject.server.models.Stock;
+import com.tfip2223miniproject.server.models.StockGlobalQuote;
 import com.tfip2223miniproject.server.models.StockOverview;
+import com.tfip2223miniproject.server.models.StockPriceMonthly;
 import com.tfip2223miniproject.server.services.StockService;
 import com.tfip2223miniproject.server.utils.Utils;
 
@@ -23,66 +25,78 @@ import io.jsonwebtoken.io.IOException;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
-import jakarta.json.JsonObject;
+
 
 @RestController
-@CrossOrigin(origins="*")
-@RequestMapping(path="/api/data", produces=MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*")
+@RequestMapping(path = "/api/data", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataController {
 
-    @Autowired StockService stockSvc;
-    
-    // @GetMapping(path="/search/{stockName}")
-    // public ResponseEntity<String> searchByStockName(
-    //     @RequestHeader(name = "Authorization") String token,
-    //     @PathVariable(required=true) String stockName) throws IOException {
+    @Autowired
+    StockService stockSvc;
 
-    //         JsonArray result = null;
-    //         Optional<List<Stock>> optListStock = this.stockSvc.getStocks(stockName);
-    //         List<Stock> results = optListStock.get();
-    //         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-    //         for(Stock s : results)
-    //             arrBuilder.add(Utils.toJSON(s));
-    //         result = arrBuilder.build();
-    //         System.out.println("searching stock name >>>" + stockName);
-    //         return ResponseEntity
-    //             .status(HttpStatus.OK)
-    //             .contentType(MediaType.APPLICATION_JSON)
-    //             .body(result.toString());
-    //     }
-
-    @GetMapping(path="/search")
+    @GetMapping(path = "/search")
     public ResponseEntity<String> searchByStockName(
-        @RequestHeader(name = "Authorization") String token,
-        @RequestParam(required=true) String stockName) throws IOException {
+            @RequestHeader(name = "Authorization") String token,
+            @RequestParam(required = true) String stockName) throws IOException {
 
-            JsonArray result = null;
-            Optional<List<Stock>> optListStock = this.stockSvc.getStocks(stockName);
-            List<Stock> results = optListStock.get();
-            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-            for(Stock s : results)
-                arrBuilder.add(Utils.toJSON(s));
-            result = arrBuilder.build();
-            System.out.println("searching stock name >>>" + stockName);
-            return ResponseEntity
+        JsonArray result = null;
+        Optional<List<Stock>> optListStock = this.stockSvc.getStocks(stockName);
+        List<Stock> results = optListStock.get();
+        JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+        for (Stock s : results)
+            arrBuilder.add(Utils.toJSON(s));
+        result = arrBuilder.build();
+        System.out.println("searching stock name >>>" + stockName);
+        return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(result.toString());
-        }
+    }
 
-    @GetMapping(path="/overview")
+    @GetMapping(path = "/overview")
     public ResponseEntity<String> getStockOverview(
-        @RequestHeader(name = "Authorization") String token,
-        @RequestParam(required=true) String stockName) throws IOException {
-            
-            Optional<StockOverview> optListStock = this.stockSvc.getStockOverview(stockName);
-            StockOverview results = optListStock.get();
-            System.out.println("searching stock overview by name >>>" + stockName);
-            return ResponseEntity
+            @RequestHeader(name = "Authorization") String token,
+            @RequestParam(required = true) String stockName) throws IOException {
+
+        Optional<StockOverview> optStockOverview = this.stockSvc.getStockOverview(stockName);
+        StockOverview results = optStockOverview.get();
+        System.out.println("searching stock overview by name >>>" + stockName);
+        return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Utils.toJSON(results).toString());
-                
-        }
-    
+
+    }
+
+    @GetMapping(path = "/globalquote")
+    public ResponseEntity<String> getGlobalQuote(
+            @RequestHeader(name = "Authorization") String token,
+            @RequestParam(required = true) String stockName) throws IOException {
+
+        Optional<StockGlobalQuote> optStockGlobalQuote = this.stockSvc.getStockGlobalQuote(stockName);
+        StockGlobalQuote results = optStockGlobalQuote.get();
+        System.out.println("searching stock global quote by name >>>" + stockName);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Utils.toJSON(results).toString());
+
+    }
+
+    @GetMapping(path = "/pricemonthly")
+    public ResponseEntity<String> getPriceMonthly(
+            @RequestHeader(name = "Authorization") String token,
+            @RequestParam(required = true) String stockName) throws IOException {
+
+        Optional<StockPriceMonthly> optStockPriceMonthly = this.stockSvc.getStockPriceMonthly(stockName);
+        StockPriceMonthly results = optStockPriceMonthly.get();
+        System.out.println("searching stock global quote by name >>>" + stockName);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(Utils.toJSON(results).toString());
+
+    }
+
 }

@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Observable, map, shareReplay } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -27,6 +27,8 @@ export class NavbarComponent implements OnInit {
     if (this.authSvc.isLoggedIn == false) {
       this.router.navigate(['/login'])
     } 
+    this.router.events.subscribe((event) => 
+    this.isLoggedIn = this.authSvc.isLoggedIn)
   }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)

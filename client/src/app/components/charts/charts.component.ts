@@ -7,12 +7,18 @@ import { Chart } from 'angular-highcharts';
   styleUrls: ['./charts.component.css'],
 
 })
-export class ChartsComponent{
+export class ChartsComponent implements OnInit{
+  
+
+
+  ngOnInit(): void {
+    // call backend to get data on stocks;
+  }
 
   lineChartData = [10, 2, 3, 6, 9, 17, 20, 10, 5, 2, 16, 5, 1, 4, 9, 4, 20, 2, 7, 1, 3, 14];
   lineChartData2 = [5, 1, 4, 9, 4, 20, 2, 7, 1, 3, 14, 10, 2, 3, 6, 9, 17, 20, 10, 5, 2, 16];
   pieCharData = [
-    { name: 'COVID-19', y: 25, custom: { extraInformation: 'test for extra information'}, color: 'black' },
+    { name: 'IBM', y: 25, custom: { extraInformation: 'test for extra information'}, color: 'black' },
     { name: 'HIV/AIDS', y: 5, color: 'blue' },
     { name: 'EBOLA', y: 7, color: 'red' },
     { name: 'DISPORA', y: 3, color: 'green' },
@@ -89,7 +95,7 @@ export class ChartsComponent{
     title: {
       verticalAlign: 'middle',
       floating: true,
-      text: 'Diseases'
+      text: 'Stock Diversification'
     },
     legend: {
       enabled: false,

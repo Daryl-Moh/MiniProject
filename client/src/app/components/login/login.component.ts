@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authSvc: AuthService,
-    private _ngZone: NgZone) { }
+    private authSvc: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm = this.createForm()
@@ -44,6 +43,7 @@ export class LoginComponent implements OnInit {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
         this.router.navigate(['/'])
+        this.isLoggedIn = this.authSvc.isLoggedIn
       })
       .catch(error => {
         console.error(error)

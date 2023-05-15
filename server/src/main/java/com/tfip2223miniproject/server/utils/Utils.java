@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.tfip2223miniproject.server.models.Stock;
+import com.tfip2223miniproject.server.models.StockGlobalQuote;
 import com.tfip2223miniproject.server.models.StockOverview;
+import com.tfip2223miniproject.server.models.StockPriceMonthly;
 import com.tfip2223miniproject.server.models.User;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
@@ -65,6 +68,44 @@ public class Utils {
         return JsonObj;
     }
 
+    public static JsonObject toJSON(StockGlobalQuote sgq) {
+        JsonObject JsonObj = Json.createObjectBuilder()
+            .add("symbol", sgq.getSymbol())
+            .add("price", sgq.getPrice())
+            .add("latest trading day", sgq.getLatestTradingDay())
+            .add("change", sgq.getChange())
+            .add("change percentage", sgq.getChangePercent())
+            .build();
+        return JsonObj;
+    }
+
+    public static JsonObject toJSON(StockPriceMonthly spm) {
+
+        JsonArray resultClose = null;
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+        for(Float c : spm.getCloseArray())
+            arrayBuilder.add(c);
+
+        resultClose = arrayBuilder.build();
+
+        JsonArray resultVolume = null;
+        JsonArrayBuilder arrayBuilder2 = Json.createArrayBuilder();
+     
+        for(Long v : spm.getVolumeArray())
+            arrayBuilder2.add(v);
+
+        resultVolume = arrayBuilder2.build();    
+
+        JsonObject JsonObj = Json.createObjectBuilder()
+            .add("symbol", spm.getSymbol())
+            .add("prices", resultClose)
+            .add("volumes", resultVolume)
+            .build();
+        return JsonObj;
+    }
+
+
     public static Optional<List<Stock>> createListOfStocks (String json) throws IOException {
         List<Stock> stockList = new LinkedList<>();
 
@@ -102,6 +143,42 @@ public class Utils {
 
         if(stkovr != null)
             return Optional.of(stkovr);
+        return Optional.empty();
+    }
+
+    public static Optional<StockGlobalQuote> createStockGlobalQuote (String json) throws IOException {
+        StockGlobalQuote stockglobalquote = new StockGlobalQuote();
+
+        try (InputStream is = new ByteArrayInputStream(json.getBytes())) {
+            JsonReader r = Json.createReader(is);
+            JsonObject obj = r.readObject();
+
+            stockglobalquote = stockglobalquote.create(obj.asJsonObject());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(stockglobalquote != null)
+            return Optional.of(stockglobalquote);
+        return Optional.empty();
+    }
+
+    public static Optional<StockPriceMonthly> createPriceMonthly (String json) throws IOException {
+        StockPriceMonthly stockpricemonthly = new StockPriceMonthly();
+
+        try (InputStream is = new ByteArrayInputStream(json.getBytes())) {
+            JsonReader r = Json.createReader(is);
+            JsonObject obj = r.readObject();
+
+            stockpricemonthly = stockpricemonthly.create(obj.asJsonObject());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(stockpricemonthly != null)
+            return Optional.of(stockpricemonthly);
         return Optional.empty();
     }
 

@@ -6,7 +6,7 @@
             <button type="button" (click)="logout()">Logout</button>
         </div>
         <mat-nav-list>
-            <div *ngIf=isLoggedIn>
+            <div *ngIf="isLoggedIn">
                 <a mat-list-item routerLink="/portfolio">Portfolio</a>
                 <a mat-list-item routerLink="/search">Search Stock</a>
                 <a mat-list-item routerLink="/list">List Stock</a>

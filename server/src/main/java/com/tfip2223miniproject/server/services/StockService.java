@@ -10,7 +10,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.tfip2223miniproject.server.models.Stock;
+import com.tfip2223miniproject.server.models.StockGlobalQuote;
 import com.tfip2223miniproject.server.models.StockOverview;
+import com.tfip2223miniproject.server.models.StockPriceMonthly;
 import com.tfip2223miniproject.server.utils.Utils;
 
 import io.jsonwebtoken.io.IOException;
@@ -87,4 +89,60 @@ public class StockService {
         
         return stkovr;
     }
+
+    public Optional<StockGlobalQuote> getStockGlobalQuote(String stockName) throws IOException { 
+        ResponseEntity<String> resp = null;
+        Optional<StockGlobalQuote> stockglobalquote = null;
+        String stockGlobalQuoteApiUrl = UriComponentsBuilder
+                .fromUriString(stockApiUrl)
+                .queryParam("function", "GLOBAL_QUOTE")
+                .queryParam("symbol", stockName.replaceAll(" ", "+"))
+                .queryParam("apikey", stockApiKey.trim())
+                .toUriString();
+
+        System.out.println("stockGlobalQuoteApiUrl >>> " + stockGlobalQuoteApiUrl);
+
+        RestTemplate template = new RestTemplate();
+
+        resp = template.getForEntity(stockGlobalQuoteApiUrl, String.class);
+
+        System.out.println("Response Body >>> " + resp);
+
+        try {
+            stockglobalquote = Utils.createStockGlobalQuote(resp.getBody());
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+
+        return stockglobalquote;
+    }
+
+    public Optional<StockPriceMonthly> getStockPriceMonthly(String stockName) throws IOException { 
+        ResponseEntity<String> resp = null;
+        Optional<StockPriceMonthly> stockpricemonthly = null;
+        String stockPriceMonthlyApiUrl = UriComponentsBuilder
+                .fromUriString(stockApiUrl)
+                .queryParam("function", "TIME_SERIES_MONTHLY")
+                .queryParam("symbol", stockName.replaceAll(" ", "+"))
+                .queryParam("apikey", stockApiKey.trim())
+                .toUriString();
+
+        System.out.println("stockPriceMonthlyApiUrl >>> " + stockPriceMonthlyApiUrl);
+
+        RestTemplate template = new RestTemplate();
+
+        resp = template.getForEntity(stockPriceMonthlyApiUrl, String.class);
+
+        System.out.println("Response Body >>> " + resp);
+
+        try {
+            stockpricemonthly = Utils.createPriceMonthly(resp.getBody());
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+        
+        return stockpricemonthly;
+    }
+
+
 }
