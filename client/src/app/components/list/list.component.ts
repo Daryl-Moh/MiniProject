@@ -31,7 +31,7 @@ export class ListComponent implements OnInit{
         this.currentIndex = 1;
         console.log('[ngOnInit] >>> stockSvc.getStocks ' + lst);
         if (lst === undefined || lst.length == 0) {
-          this.router.navigate(['/overview'])
+          this.router.navigate(['/'])
         } else {
           this.stocks = lst;
         }

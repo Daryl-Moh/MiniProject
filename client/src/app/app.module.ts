@@ -18,6 +18,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
+import { OverviewComponent } from './components/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MapComponent } from './components/map/map.component';
     HomeComponent,
     AboutComponent,
     LoginComponent,
-    MapComponent
+    MapComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,

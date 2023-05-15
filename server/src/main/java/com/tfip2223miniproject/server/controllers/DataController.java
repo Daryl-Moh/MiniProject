@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +23,7 @@ import io.jsonwebtoken.io.IOException;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObject;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -70,24 +70,19 @@ public class DataController {
                 .body(result.toString());
         }
 
-    @GetMapping(path="/overview/{stockName}")
+    @GetMapping(path="/overview")
     public ResponseEntity<String> getStockOverview(
         @RequestHeader(name = "Authorization") String token,
-        @PathVariable(required=true) String stockName) throws IOException {
+        @RequestParam(required=true) String stockName) throws IOException {
             
-            JsonArray result = null;
             Optional<StockOverview> optListStock = this.stockSvc.getStockOverview(stockName);
             StockOverview results = optListStock.get();
-            JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
-                arrBuilder.add(Utils.toJSON(results));
-            result = arrBuilder.build();
             System.out.println("searching stock overview by name >>>" + stockName);
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(result.toString());
-
-
+                .body(Utils.toJSON(results).toString());
+                
         }
     
 }

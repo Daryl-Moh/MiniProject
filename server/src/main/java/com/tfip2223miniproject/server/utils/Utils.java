@@ -58,8 +58,8 @@ public class Utils {
             .add("industry", so.getIndustry())
             .add("dividendPerShare", so.getDividendPerShare())
             .add("dividendYield", so.getDividendYield())
-            .add("52WeekHigh", so.getFiftyTwoWeekHigh())
-            .add("52WeekLow", so.getFiftyTwoWeekLow())
+            .add("fiftyTwoWeekHigh", so.getFiftyTwoWeekHigh())
+            .add("fiftyTwoWeekLow", so.getFiftyTwoWeekLow())
             .build();
 
         return JsonObj;

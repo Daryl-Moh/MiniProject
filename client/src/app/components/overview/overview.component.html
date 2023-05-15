@@ -1,0 +1,31 @@
+<mat-card *ngIf="stockOverview" class="example-card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{stockName}}</mat-card-title>
+        <mat-card-subtitle><button mat-raised-button type="button" (click)="addToPortfolio()">Add to portfolio</button></mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+        {{stockOverview.name}}
+        <br>
+        {{stockOverview.description}}
+        <br>
+        {{stockOverview.exchange}}
+        <br>
+        {{stockOverview.country}}
+        <br>
+        {{stockOverview.sector}}
+        <br>
+        {{stockOverview.industry}}
+        <br>
+        {{stockOverview.dividendPerShare}}
+        <br>
+        {{stockOverview.dividendYield}}
+        <br>
+        {{stockOverview.fiftyTwoWeekHigh}}
+        <br>
+        {{stockOverview.fiftyTwoWeekLow}}
+    </mat-card-content>
+  </mat-card>
+
+

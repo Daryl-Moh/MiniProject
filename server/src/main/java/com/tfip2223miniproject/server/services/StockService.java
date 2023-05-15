@@ -84,7 +84,7 @@ public class StockService {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-
+        
         return stkovr;
     }
 }
