@@ -1,1 +1,5 @@
-<p>list works!</p>
+<mat-nav-list>
+    <a mat-list-item *ngFor="let s of stocks" [routerLink]="['/overview', s.name]">
+        {{s.name}}
+    </a>
+</mat-nav-list>

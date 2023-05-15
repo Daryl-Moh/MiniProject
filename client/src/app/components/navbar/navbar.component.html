@@ -1,1 +1,35 @@
-<p>navbar works!</p>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar>Welcome {{ givenname | titlecase }}</mat-toolbar>
+        <div class="center" *ngIf="isLoggedIn; else Login">
+            <button type="button" (click)="logout()">Logout</button>
+        </div>
+        <mat-nav-list>
+            <div *ngIf=isLoggedIn>
+                <a mat-list-item routerLink="/portfolio">Portfolio</a>
+                <a mat-list-item routerLink="/search">Search Stock</a>
+                <a mat-list-item routerLink="/list">List Stock</a>
+                <a mat-list-item routerLink="/about">About</a>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>Nyaa-Rock Investments</span>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<ng-template #Login>
+    <div class="center" >
+        <button type="button" [routerLink]="['/login']">
+            Login
+        </button>
+    </div>
+</ng-template>

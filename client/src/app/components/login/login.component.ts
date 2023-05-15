@@ -21,13 +21,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.createForm()
-
-    // this.isLoggedIn = this.authSvc.isLoggedIn
-    // if (this.authSvc.isLoggedIn) {
-    //   this.router.navigate(['/']).then(() => {
-    //     window.location.reload()
-    //   })
-    // }
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (this.authSvc.isLoggedIn) {
+      this.router.navigate(['/about']).then(() => {
+        window.location.reload()
+      })
+    }
   }
 
   private createForm(): FormGroup {
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
-        this.router.navigate(['/portfolio'])
+        this.router.navigate(['/'])
       })
       .catch(error => {
         console.error(error)

@@ -4,11 +4,14 @@ import { Router } from "@angular/router";
 import { firstValueFrom } from 'rxjs';
 import jwt_decode from 'jwt-decode';
 
+
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
+    private readonly JWT_TOKEN_NAME = "jwt"
+    
     constructor(
         private http: HttpClient,
         private router: Router) { }
@@ -17,15 +20,26 @@ export class AuthService {
         return !!localStorage.getItem('jwt')
     }
 
-    get givenName() {
+    get givenname() {
         const token = localStorage.getItem('jwt')
         if (null != token) {
             const decodedJWT: any = jwt_decode(token)
             return decodedJWT['givenname']
+            console.log("decodedJWT >>> " + decodedJWT)
         } else {
             return ""
         }
     }
+
+    get JWT() {
+        const token = localStorage.getItem(this.JWT_TOKEN_NAME)
+            return token
+        
+    }
+
+    // get JWTHeaders() {
+    //     return new HttpHeaders().set("Authorization", `Bearer ${this.JWT}`)
+    // }
 
     register(givenname: string, familyname: string, email: string, password: string): Promise<any> {
         const body = { givenname, familyname, email, password }
@@ -44,7 +58,7 @@ export class AuthService {
     logout() {
         localStorage.removeItem('jwt')
         console.log('jwt deleted from local storage')
-        this.router.navigate(['/'])
+        this.router.navigate(['/login'])
     }
 
 }

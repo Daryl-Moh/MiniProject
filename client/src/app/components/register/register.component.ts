@@ -21,13 +21,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.createForm()
-    // this.isLoggedIn = this.authSvc.isLoggedIn
-    // if (this.authSvc.isLoggedIn) {
-    //   timeout(3000)
-    //   this.router.navigate(['/register']).then(() => {
-    //     window.location.reload()
-    //   })
-    // }
   }
 
   private createForm(): FormGroup {
@@ -48,7 +41,7 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
-        this.router.navigate(['/portfolio'])
+        this.router.navigate(['/home'])
       })
       .catch(error => {
         console.error(error)

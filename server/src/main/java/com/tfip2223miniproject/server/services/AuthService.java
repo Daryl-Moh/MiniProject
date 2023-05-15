@@ -47,7 +47,6 @@ public class AuthService {
                                 .email(request.getString("email"))
                                 .password(pwEncoder.encode(request.getString("password")))
                                 .role(Role.USER)
-                                .isGoogleLogin(request.getBoolean("isGoogleLogin"))
                                 .build();
                 System.out.println("newUser created");
                 userRepo.insertUser(newUser);
