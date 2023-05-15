@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.el.stream.Stream;
-
 import com.tfip2223miniproject.server.models.Stock;
 import com.tfip2223miniproject.server.models.StockOverview;
 import com.tfip2223miniproject.server.models.User;

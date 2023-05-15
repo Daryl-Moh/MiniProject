@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tfip2223miniproject.server.models.Stock;
@@ -31,10 +32,29 @@ public class DataController {
 
     @Autowired StockService stockSvc;
     
-    @GetMapping(path="/search/{stockName}")
+    // @GetMapping(path="/search/{stockName}")
+    // public ResponseEntity<String> searchByStockName(
+    //     @RequestHeader(name = "Authorization") String token,
+    //     @PathVariable(required=true) String stockName) throws IOException {
+
+    //         JsonArray result = null;
+    //         Optional<List<Stock>> optListStock = this.stockSvc.getStocks(stockName);
+    //         List<Stock> results = optListStock.get();
+    //         JsonArrayBuilder arrBuilder = Json.createArrayBuilder();
+    //         for(Stock s : results)
+    //             arrBuilder.add(Utils.toJSON(s));
+    //         result = arrBuilder.build();
+    //         System.out.println("searching stock name >>>" + stockName);
+    //         return ResponseEntity
+    //             .status(HttpStatus.OK)
+    //             .contentType(MediaType.APPLICATION_JSON)
+    //             .body(result.toString());
+    //     }
+
+    @GetMapping(path="/search")
     public ResponseEntity<String> searchByStockName(
         @RequestHeader(name = "Authorization") String token,
-        @PathVariable(required=true) String stockName) throws IOException {
+        @RequestParam(required=true) String stockName) throws IOException {
 
             JsonArray result = null;
             Optional<List<Stock>> optListStock = this.stockSvc.getStocks(stockName);
