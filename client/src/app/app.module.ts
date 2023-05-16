@@ -1,6 +1,7 @@
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { ChartModule } from 'angular-highcharts';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,7 +22,6 @@ import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { ChartsComponent } from './components/charts/charts.component';
-import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [

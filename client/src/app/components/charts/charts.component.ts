@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { StockPriceMonthly } from 'src/app/models/stockpricemonthly';
+import { StockService } from 'src/app/services/stock.service';
+import * as Highcharts from 'highcharts';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-charts',
@@ -7,105 +13,60 @@ import { Chart } from 'angular-highcharts';
   styleUrls: ['./charts.component.css'],
 
 })
-export class ChartsComponent implements OnInit{
-  
+export class ChartsComponent implements OnInit {
 
+  @Input()
+  stockName!: string
+    
+  lineChartStocks: StockPriceMonthly[] = []
+
+  constructor(
+    private stkSvc: StockService) { }
 
   ngOnInit(): void {
-    // call backend to get data on stocks;
+
+        this.tempSvc(this.stockName)
+
   }
 
-  lineChartData = [10, 2, 3, 6, 9, 17, 20, 10, 5, 2, 16, 5, 1, 4, 9, 4, 20, 2, 7, 1, 3, 14];
-  lineChartData2 = [5, 1, 4, 9, 4, 20, 2, 7, 1, 3, 14, 10, 2, 3, 6, 9, 17, 20, 10, 5, 2, 16];
-  pieCharData = [
-    { name: 'IBM', y: 25, custom: { extraInformation: 'test for extra information'}, color: 'black' },
-    { name: 'HIV/AIDS', y: 5, color: 'blue' },
-    { name: 'EBOLA', y: 7, color: 'red' },
-    { name: 'DISPORA', y: 3, color: 'green' },
-    { name: 'DIABETES', y: 13, color: 'yellow' }
-  ]
+  async tempSvc(stockName: string) {
+      this.stkSvc.getStockPriceMonthly(stockName).then(
+        data => {
+          this.renderChart(data.symbol, data.prices)
+        }
+      )
+  }
 
-  lineChart = new Chart({
-    chart: {
-      type: 'line'
-    },
-    title: {
-      text: 'Patients'
-    },
-    credits: {
-      enabled: false
-    },
-    yAxis: {
+  renderChart(symbol: string, data: number[]) {
+
+    const categories = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
+    Highcharts.chart('chart-container', {
       title: {
-        text: 'Number of Patients'
-      }
-    },
-    xAxis: {
-      accessibility: {
-        rangeDescription: 'Range: 2010 to 2023'
-      }
-    },
-    plotOptions: {
-      series: {
-        label: {
-          connectorAllowed: false
-        },
-        pointStart: 2010
-      }
-    },
-    legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
-    },
-    series: [
-      {
-        name: 'Patients admitted',
-        data: this.lineChartData,
-      } as any,
-      {
-        name: 'Patients discharged',
-        data: this.lineChartData2,
-      } as any
-    ]
-  })
-
-  pieChart = new Chart({
-    chart: {
-      type: 'pie',
-      plotShadow: false
-    },
-    credits: {
-      enabled: false,
-    },
-    tooltip: {
-      pointFormat: '{series.name}: Value: <b>{point.y}</b> Percentrage: <b>{point.percentage:.1f}%</b> <br>{point.custom.extraInformation}'
-    },
-    plotOptions: {
-      pie: {
-        innerSize: '99%',
-        borderWidth: 10,
-        borderColor: '',
-        slicedOffset: 10,
-        dataLabels: {
-          connectorWidth: 0,
-        },
+        text: `Stock Price for ${symbol}`
       },
-    },
-    title: {
-      verticalAlign: 'middle',
-      floating: true,
-      text: 'Stock Diversification'
-    },
-    legend: {
-      enabled: false,
-    },
-    series: [
-      {
-        type: 'pie',
-        data: this.pieCharData
-      }
-    ]
-
-  })
+      xAxis: {
+        categories: categories
+      },
+      yAxis: [{
+        title: {
+          text: 'Price'
+        }
+      }, {
+        title: {
+          text: 'Volume'
+        },
+        opposite: true
+      }],
+      tooltip: {
+        shared: true
+      },
+      series: [{
+        name: 'Price',
+        type: 'line',
+        data: data,
+        yAxis: 0
+      }]
+    });
+  }
 }
+

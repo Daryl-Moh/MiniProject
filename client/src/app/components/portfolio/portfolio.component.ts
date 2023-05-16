@@ -13,7 +13,7 @@ export class PortfolioComponent implements OnInit{
   
   stockName = ""
   param$!: Subscription
-  stocksList: Array<String> = ["TSLA", "IBM"]
+  stocksList: Array<string> = ["TSLA", "IBM"]
 
   constructor(
     private activatedRoute: ActivatedRoute,

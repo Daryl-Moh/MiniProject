@@ -1,5 +1,8 @@
 <p>portfolio works!</p>
 
-<div *ngFor="let ls of stocksList">
-    {{ls}}
+<div *ngFor="let ls of stocksList; let i = index">
+    <div>
+        <app-charts [stockName]="stocksList[i]"></app-charts>
+    </div> 
+    
 </div>
