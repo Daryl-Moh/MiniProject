@@ -40,7 +40,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authSvc.logout()
-    window.location.reload()
   }
   
 }

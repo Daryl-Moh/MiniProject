@@ -3,8 +3,5 @@
 </div>
 <div *ngFor="let ls of stocksList; let i = index">
     {{ls}}
-    <!-- <div>
-        <app-charts [stockName]="stocksList[i]"></app-charts>
-    </div>  -->
-    
+    <app-charts [stockName]="stocksList[i]"></app-charts>
 </div>

@@ -17,8 +17,6 @@ export class ChartsComponent implements OnInit {
 
   @Input()
   stockName!: string
-    
-  lineChartStocks: StockPriceMonthly[] = []
 
   constructor(
     private stkSvc: StockService) { }
@@ -33,6 +31,7 @@ export class ChartsComponent implements OnInit {
       this.stkSvc.getStockPriceMonthly(stockName).then(
         data => {
           this.renderChart(data.symbol, data.prices)
+          
         }
       )
   }

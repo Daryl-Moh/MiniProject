@@ -25,7 +25,7 @@ export class PortfolioComponent implements OnInit {
   ngOnInit(): void {
     this.stockSvc.getUserStocks(this.authSvc.userID).then(
       data => {
-        this.stocksList = (data.stockSymbols)
+        this.stocksList = data.stockSymbols;
         console.log("stocksList >>> " + this.stocksList)
       }
     ).catch((error : HttpErrorResponse) => {
