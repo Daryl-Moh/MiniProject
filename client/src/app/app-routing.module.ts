@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'about', component: AboutComponent},
-  { path: 'portfolio/:stockName', component: PortfolioComponent},
+  { path: 'portfolio', component: PortfolioComponent},
   { path: 'overview/:stockName', component: OverviewComponent},
   { path: "**", redirectTo: "/", pathMatch: 'full' }
 ];

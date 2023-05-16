@@ -9,4 +9,5 @@ public class Constants {
     };
 
     public static final String PORTFOLIO_COL = "portfolio";
+    public static final String USER_ID = "userID";
 }

@@ -25,7 +25,16 @@ export class AuthService {
         if (null != token) {
             const decodedJWT: any = jwt_decode(token)
             return decodedJWT['givenname']
-            console.log("decodedJWT >>> " + decodedJWT)
+        } else {
+            return ""
+        }
+    }
+
+    get userID() { 
+        const token = localStorage.getItem('jwt')
+        if (null != token) {
+            const decodedJWT: any = jwt_decode(token)
+            return decodedJWT['sub']
         } else {
             return ""
         }
@@ -36,10 +45,6 @@ export class AuthService {
             return token
         
     }
-
-    // get JWTHeaders() {
-    //     return new HttpHeaders().set("Authorization", `Bearer ${this.JWT}`)
-    // }
 
     register(givenname: string, familyname: string, email: string, password: string): Promise<any> {
         const body = { givenname, familyname, email, password }

@@ -5,6 +5,7 @@ import { Stock } from "../models/stock";
 import { AuthService } from "./auth.service";
 import { StockOverview } from "../models/stockoverview";
 import { StockPriceMonthly } from "../models/stockpricemonthly";
+import { Portfolio } from "../models/portfolio";
 
 @Injectable({
     providedIn: 'root'
@@ -56,6 +57,18 @@ export class StockService {
         return lastValueFrom(this.httpClient
             .get<StockPriceMonthly>(this.API_URI + "/pricemonthly", { params: params, headers: headers }));
 
+    }
+
+    getUserStocks(userID: string): Promise<Portfolio> {
+        const params = new HttpParams()
+        .set("userID", userID.trim());
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        console.log('[getUserStocks] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[getUserStocks] >>> params = ' + params);
+        console.log('[getUserStocks] >>> headers = ' + headers);
+
+        return lastValueFrom(this.httpClient
+            .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers })); 
     }
 
 }

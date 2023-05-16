@@ -21,14 +21,15 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = this.authSvc.isLoggedIn
-    this.givenname = this.authSvc.givenname
+    
     console.log("userName >>> " + this.givenname)
     console.log("login status >>> " + this.isLoggedIn)
     if (this.authSvc.isLoggedIn == false) {
       this.router.navigate(['/login'])
     } 
-    this.router.events.subscribe((event) => 
-    this.isLoggedIn = this.authSvc.isLoggedIn)
+    this.router.events.subscribe((event) => {
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    this.givenname = this.authSvc.givenname})
   }
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)

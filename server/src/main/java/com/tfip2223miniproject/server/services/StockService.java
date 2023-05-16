@@ -3,22 +3,29 @@ package com.tfip2223miniproject.server.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.tfip2223miniproject.server.models.Portfolio;
 import com.tfip2223miniproject.server.models.Stock;
 import com.tfip2223miniproject.server.models.StockGlobalQuote;
 import com.tfip2223miniproject.server.models.StockOverview;
 import com.tfip2223miniproject.server.models.StockPriceMonthly;
+import com.tfip2223miniproject.server.repositories.CustomerRepository;
 import com.tfip2223miniproject.server.utils.Utils;
 
 import io.jsonwebtoken.io.IOException;
 
 @Service
 public class StockService {
+
+    @Autowired
+    private CustomerRepository custRepo;
 
     @Value("${miniproj.stock.api.url}")
     private String stockApiUrl;
@@ -144,5 +151,12 @@ public class StockService {
         return stockpricemonthly;
     }
 
+    public void insertPortfolio(Portfolio p){
+        custRepo.insertPortfolio(p);
+    }
+
+    public List<Document> getUserStocks(String userID){
+        return custRepo.getUserStocks(userID);
+    }
 
 }

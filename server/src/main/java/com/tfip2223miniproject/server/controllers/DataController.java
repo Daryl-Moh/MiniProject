@@ -3,6 +3,7 @@ package com.tfip2223miniproject.server.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,7 +31,6 @@ import io.jsonwebtoken.io.IOException;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
-
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -107,18 +106,44 @@ public class DataController {
 
     }
 
-    // @PostMapping(path="/save/{userID}")
-    // public ResponseEntity<String> saveUserPortfolio (
-    //     @RequestBody Portfolio comment, @PathVariable(required=true) String userID) {
-    //     logger.info("save portfolio > : " + userID);
-    //     Portfolio c= new Portfolio();
-    //     c.setComment(comment.getComment());
-    //     c.setCharId(charId);
-    //     Portfolio r = this.charSvc.insertComment(c);
-    //     return ResponseEntity
-    //         .status(HttpStatus.OK)
-    //         .contentType(MediaType.APPLICATION_JSON)
-    //         .body(r.toJSON().toString());
-    // }
+    @PostMapping(path = "/save")
+    public ResponseEntity<String> saveUserPortfolio(
+            @RequestBody Portfolio portfolio,
+            @RequestParam(required = true) String userID) {
+                
+        List<Document> result = this.stockSvc.getUserStocks(userID);
+        if (result.isEmpty()) {
+            Portfolio p1 = new Portfolio();
+            p1.setUserID(userID);
+            p1.setStockSymbols(portfolio.getStockSymbols());
+            this.stockSvc.insertPortfolio(p1);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("Portfolio Insertion Success!");
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("TODO --> WRITE YOUR UPDATE CODE");
+        }
+    }
+
+    @GetMapping(path = "/retrieve")
+    public ResponseEntity<String> getUserStocks(
+            @RequestParam(required = true) String userID) {
+        List<Document> results = this.stockSvc.getUserStocks(userID);
+        if (results.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("User Does Not Exist");
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(results.get(0).toJson().toString());
+        }
+    }
 
 }
