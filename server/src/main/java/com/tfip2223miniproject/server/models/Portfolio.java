@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class Portfolio implements Serializable {
     
     private String userID;
-    private List<Stock> listOfStocks;
+    private List<String> stockSymbols;
 }

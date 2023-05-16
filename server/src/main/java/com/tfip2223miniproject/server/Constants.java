@@ -7,4 +7,6 @@ public class Constants {
         "2023-02-28",
         "2023-01-31"
     };
+
+    public static final String PORTFOLIO_COL = "portfolio";
 }
