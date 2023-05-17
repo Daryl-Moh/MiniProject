@@ -1,0 +1,38 @@
+.centerbox {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card {
+    margin-top: 10%;
+    padding: 40px;
+    width: 350px;
+    background-color: whitesmoke;
+}
+
+.flex {
+    display: flex;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+mat-card-title {
+    padding: 15px ;
+}
+
+mat-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

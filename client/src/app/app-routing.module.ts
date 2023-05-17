@@ -11,7 +11,7 @@ import { OverviewComponent } from './components/overview/overview.component';
 
 const routes: Routes = [
   
-  { path: '', component: HomeComponent},
+  { path: '', component: AboutComponent},
   { path: 'list/:stockName', component: ListComponent},
   { path: 'search', component: SearchComponent},
   { path: 'register', component: RegisterComponent},

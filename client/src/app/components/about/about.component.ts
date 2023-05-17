@@ -11,9 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AboutComponent implements OnInit {
 
-  constructor(
-    private authSvc: AuthService,
-    private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
  

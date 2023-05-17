@@ -36,7 +36,6 @@ export class RegisterComponent implements OnInit {
   register() {
     this.isLoading = true;
     setTimeout(() => {
-      this.router.navigate(['/']);
     }, 2000);
     const givenname = this.registerForm.value['givenname']
     const familyname = this.registerForm.value['familyname']

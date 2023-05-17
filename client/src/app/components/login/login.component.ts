@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
   login() {
     this.isLoading = true;
     setTimeout(() => {
-      this.router.navigate(['/']);
     }, 2000);
     const email = this.loginForm.value['email']
     const password = this.loginForm.value['password']
