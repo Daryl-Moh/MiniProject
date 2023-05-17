@@ -47,10 +47,6 @@
                 <mat-icon>home</mat-icon>
                 <span>Home</span>
             </button>
-            <button mat-menu-item routerLink="/about">
-                <mat-icon>info</mat-icon>
-                <span>About</span>
-            </button>
             <button *ngIf="isLoggedIn" mat-menu-item routerLink="/portfolio">
                 <mat-icon>leaderboard</mat-icon>
                 <span>Portfolio</span>
@@ -58,6 +54,10 @@
             <button *ngIf="isLoggedIn" mat-menu-item routerLink="/search">
                 <mat-icon>query_stats</mat-icon>
                 <span>Search</span>
+            </button>
+            <button mat-menu-item routerLink="/about">
+                <mat-icon>info</mat-icon>
+                <span>About</span>
             </button>
         </mat-menu>
     </div>
