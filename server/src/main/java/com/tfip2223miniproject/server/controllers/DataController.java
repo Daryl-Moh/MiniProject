@@ -108,11 +108,17 @@ public class DataController {
             @RequestBody Portfolio portfolio,
             @RequestParam(required = true) String userID) {
 
+        System.out.println("Hitting the @PostMapping userID >>> " + userID );
+        System.out.println("Hitting the @PostMapping portfolio >>> " + portfolio);
+
         List<Document> result = this.stockSvc.getUserStocks(userID);
+
+        System.out.println("Hitting the @PostMapping portfolio >>> " + result);
+        
         if (result.isEmpty()) {
             Portfolio p1 = new Portfolio();
             p1.setUserID(userID);
-            p1.setStockSymbols(portfolio.getStockSymbols());
+            p1.setPortfolioStocks(portfolio.getPortfolioStocks());
             this.stockSvc.insertPortfolio(p1);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -122,7 +128,7 @@ public class DataController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .body("TODO --> WRITE YOUR UPDATE CODE");
+                    .body("Portfolio Insertion Failed! Portfolio already exists");
         }
     }
 
@@ -147,13 +153,29 @@ public class DataController {
     public ResponseEntity<String> updateUserStocks(
             @RequestBody Portfolio portfolio,
             @RequestParam(required = true) String userID) {
+
+        System.out.println("Hitting the @PutMapping userID >>> " + userID );
+        System.out.println("Hitting the @PutMapping portfolio >>> " + portfolio);
+
         Portfolio p1 = new Portfolio();
         p1.setUserID(userID);
-        p1.setStockSymbols(portfolio.getStockSymbols());
-        this.stockSvc.updatePortfolio(p1);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body("Portfolio Update Success!");
+        p1.setPortfolioStocks(portfolio.getPortfolioStocks());
+
+        System.out.println("Hitting the @PostMapping p1 >>> " + p1);
+
+        Boolean result = this.stockSvc.updatePortfolio(p1);
+        
+        if (result == true) {
+            return ResponseEntity
+            .status(HttpStatus.OK)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("Portfolio Update Success!");
+        } else {
+            return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("Portfolio Update Failed!");
+        }
+        
     }
 }

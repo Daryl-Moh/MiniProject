@@ -8,15 +8,17 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.client.result.UpdateResult;
 import com.tfip2223miniproject.server.models.Portfolio;
 
 import static com.tfip2223miniproject.server.Constants.*;
 
 import java.util.List;
 
+
 @Repository
 public class CustomerRepository {
-    
+
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -24,22 +26,24 @@ public class CustomerRepository {
         mongoTemplate.insert(p, PORTFOLIO_COL);
     }
 
-
     public List<Document> getUserStocks(String userID) {
-        
+
         Criteria criterial = Criteria.where(USER_ID).regex(userID, "i");
         Query query = Query.query(criterial);
 
         List<Document> result = mongoTemplate.find(query, Document.class, PORTFOLIO_COL);
-        
+
         return result;
     }
 
-    public void updatePortfolio(Portfolio p) {
-        Criteria criterial = Criteria.where(USER_ID).regex(p.getUserID(), "i");
-        Query query = Query.query(criterial);
-        Update update = new Update().set("stockSymbols", p.getStockSymbols());
-        mongoTemplate.updateFirst(query, update, Portfolio.class, PORTFOLIO_COL);
-
+    public Boolean updatePortfolio(Portfolio p) {
+        Query query = new Query(Criteria.where("userID").is(p.getUserID()));
+        Update update = new Update().set("portfolioStocks", p.getPortfolioStocks());
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, Portfolio.class);
+        Long modifiedRows = updateResult.getModifiedCount();
+        if (modifiedRows != 1) {
+            return false;
+        }
+        return true;
     }
 }

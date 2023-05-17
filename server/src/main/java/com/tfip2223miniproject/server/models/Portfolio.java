@@ -15,15 +15,26 @@ import lombok.NoArgsConstructor;
 public class Portfolio implements Serializable {
     
     private String userID;
-    private List<String> stockSymbols;
+    private List<PortfolioStock> portfolioStocks;
 
     public JsonObject toJSON() {
 
         return Json.createObjectBuilder()
                 .add("userID", getUserID())
-                .add("stockSymbols", Json.createArrayBuilder(this.getStockSymbols()))
+                .add("stockSymbols", Json.createArrayBuilder(this.getPortfolioStocks()))
                 .build();
     }
+
+    // private String userID;
+    // private List<String> stockSymbols;
+
+    // public JsonObject toJSON() {
+
+    //     return Json.createObjectBuilder()
+    //             .add("userID", getUserID())
+    //             .add("stockSymbols", Json.createArrayBuilder(this.getStockSymbols()))
+    //             .build();
+    // }
 }
 
 
