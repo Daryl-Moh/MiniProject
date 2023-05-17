@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<!-- <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
         <mat-toolbar>Welcome {{ givenname | titlecase }}</mat-toolbar>
@@ -33,5 +33,36 @@
             Login
         </button>
     </div>
-</ng-template>
+</ng-template> -->
 
+<mat-toolbar color="primary" class="flex justify-content-between">
+    Nyaa-Rock Investments
+    <a routerLink="/about" href="" mat-stroked-button>About</a>
+    <a routerLink="/portfolio" href="" mat-stroked-button>Portfolio</a>
+    <a routerLink="/search" href="" mat-stroked-button>Search</a>
+    <a routerLink="/search" href="" mat-stroked-button>Search</a>
+
+    <div >
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon style="margin-right: 10px;" matBadge="15" matBadgeColor="accent">notifications</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Your friend got new car</button>
+            <button mat-menu-item>You are tagged in sarthak recent pho</button>
+        </mat-menu>
+    </div>
+    <div *ngIf="isLoggedIn; else Login">
+        <button mat-raised-button type="button" color="warn" (click)="logout()">Logout</button>
+    </div>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<ng-template #Login>
+    <div class="center">
+        <button mat-raised-button type="button" [routerLink]="['/login']">
+            Login
+        </button>
+    </div>
+</ng-template>

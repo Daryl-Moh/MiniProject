@@ -4,3 +4,15 @@
   align-items: center;
   height: 20px;
 }
+
+.flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.m-auto {
+  margin: auto;
+}

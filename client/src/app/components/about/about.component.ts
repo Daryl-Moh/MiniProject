@@ -11,17 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AboutComponent implements OnInit {
 
-  isLoggedIn: boolean = false
-
   constructor(
     private authSvc: AuthService,
     private router: Router) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authSvc.isLoggedIn
-    console.log("login status >>> " + this.isLoggedIn)
-    if (this.authSvc.isLoggedIn == false) {
-      this.router.navigate(['/login'])
-    }
+ 
   }
 }

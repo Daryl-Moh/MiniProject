@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
         <table>
             <tbody>
@@ -36,5 +36,40 @@
             </tbody>
         </table>
     </form>
-</div>
+</div> -->
 
+<div class="flex">
+    <div class="m-auto">
+        <mat-card>
+            <img src="./assets/img/shibaLoginScreen.png" style="width:100%">
+            <mat-card-content>
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <mat-form-field>
+                        <mat-label>E-mail</mat-label>
+                        <input type="email" matInput formControlName="email">
+                        <mat-error *ngIf="loginForm.invalid">E-mail is mandatory</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field hintLabel="Min 8 characters" appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput #input minlength="8" formControlName="password">
+                        <mat-hint align="end">{{input.value.length}}/8</mat-hint>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+
+            <mat-divider></mat-divider>
+
+            <mat-card-actions>
+                <button (click)="login()" color="accent" type="submit" mat-raised-button [disabled]="loginForm.invalid">
+                    <mat-spinner *ngIf="isLoading" diameter="35"></mat-spinner>
+                    <span *ngIf="!isLoading">Login</span>
+                </button>
+                <button type="button" mat-raised-button [routerLink]="['/register']">
+                    Sign Up
+                </button>
+            </mat-card-actions>
+
+        </mat-card>
+    </div>
+</div>

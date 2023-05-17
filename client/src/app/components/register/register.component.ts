@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup
   isLoggedIn: boolean = false
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +34,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 2000);
     const givenname = this.registerForm.value['givenname']
     const familyname = this.registerForm.value['familyname']
     const email = this.registerForm.value['email']
