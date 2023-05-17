@@ -43,7 +43,7 @@
             <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/home">
+            <button *ngIf="isLoggedIn" mat-menu-item routerLink="/home">
                 <mat-icon>home</mat-icon>
                 <span>Home</span>
             </button>

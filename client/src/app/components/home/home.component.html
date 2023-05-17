@@ -19,17 +19,19 @@
 <ng-template #list>
     <div class="outerbox">
         <table class="stock-table">
-            <tr>
-                <th>Stocks currently in porftfolio</th>
+            <tr >
+                <th>Stocks currently in portfolio</th>
+                <th>Quantity</th>
                 <th></th>
             </tr>
-            <tr *ngFor="let stock of stocksList; let i = index">
-                <td>{{ stock }}</td>
+            <tr *ngFor="let s of stocksList; let i = index">
+                <td>{{ s }}</td>
+                <td>{{ stockQuantity[i] }}</td>
                 <td>
                     <button mat-icon-button type="button" (click)="delete(i)">
                         <mat-icon>delete</mat-icon>
                     </button>
-                </td>
+                </td>  
             </tr>
         </table>
     </div>

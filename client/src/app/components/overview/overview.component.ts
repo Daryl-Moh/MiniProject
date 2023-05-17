@@ -39,6 +39,6 @@ export class OverviewComponent implements OnInit{
   addToPortfolio() {
     console.log("Adding to portfolio >>> " + this.stockName)
     // create repo call to add stockname to db as per user
-    this.router.navigate(['/portfolio', this.stockName])
+    this.router.navigate(['/home', this.stockName])
   }
 }

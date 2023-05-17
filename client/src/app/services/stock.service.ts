@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { lastValueFrom } from "rxjs";
+import { catchError, lastValueFrom, tap } from "rxjs";
 import { Stock } from "../models/stock";
 import { AuthService } from "./auth.service";
 import { StockOverview } from "../models/stockoverview";
@@ -11,6 +11,8 @@ import { Portfolio } from "../models/portfolio";
     providedIn: 'root'
 })
 export class StockService {
+
+
 
     private API_URI: string = "/api/data";
 
@@ -61,34 +63,36 @@ export class StockService {
 
     getUserStocks(userID: string): Promise<Portfolio> {
         const params = new HttpParams()
-        .set("userID", userID.trim());
+            .set("userID", userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
         console.log('[getUserStocks] >>> jwt = ' + this.authSvc.JWT);
         console.log('[getUserStocks] >>> params = ' + params);
         console.log('[getUserStocks] >>> headers = ' + headers);
 
         return lastValueFrom(this.httpClient
-            .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers })); 
-    }
-    
-    savePortfolio(p: Portfolio): Promise<any> {
-        const params = new HttpParams()
-        .set("userID", p.userID.trim());
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        const body=JSON.stringify(p);
-        console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
-        console.log('[saveStockSymbol] >>> params = ' + params);
-        console.log('[saveStockSymbol] >>> headers = ' + headers); 
-        return lastValueFrom(this.httpClient.post<Portfolio>(this.API_URI + "/" + p.userID, { params: params, headers: headers }));
+            .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers }));
     }
 
-    removeStock(stockName: string): Promise<any> {
+    savePortfolio(p: Portfolio): Promise<any> {
         const params = new HttpParams()
-        .set("userID", this.authSvc.userID.trim());
+            .set("userID", p.userID.trim());
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        const body = JSON.stringify(p);
+        console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[saveStockSymbol] >>> params = ' + params);
+        console.log('[saveStockSymbol] >>> headers = ' + headers);
+        return lastValueFrom(this.httpClient
+            .post<Portfolio>(this.API_URI + "/save" + p.userID, { params: params, headers: headers }));
+    }
+
+    updatePortfolio(p: Portfolio): Promise<any> {
+        const params = new HttpParams()
+            .set("userID", this.authSvc.userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
         console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
         console.log('[saveStockSymbol] >>> params = ' + params);
-        console.log('[saveStockSymbol] >>> headers = ' + headers); 
-        return lastValueFrom(this.httpClient.post<Portfolio>(this.API_URI + "/", { params: params, headers: headers }));
+        console.log('[saveStockSymbol] >>> headers = ' + headers);
+        return lastValueFrom(this.httpClient
+            .put<Portfolio>(this.API_URI + "/update", p, { params: params, headers: headers }));
     }
 }

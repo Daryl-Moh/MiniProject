@@ -136,6 +136,8 @@ public class DataController {
     public ResponseEntity<String> getUserStocks(
             @RequestParam(required = true) String userID) {
         List<Document> results = this.stockSvc.getUserStocks(userID);
+        System.out.println("retrieve data from userID >>> " + userID);
+        System.out.println("results >>> " + results);
         if (results.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
@@ -146,6 +148,7 @@ public class DataController {
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(results.get(0).toJson().toString());
+            
         }
     }
 
