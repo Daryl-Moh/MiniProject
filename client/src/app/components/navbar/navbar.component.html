@@ -36,23 +36,39 @@
 </ng-template> -->
 
 <mat-toolbar color="primary" class="flex justify-content-between">
-    Nyaa-Rock Investments
-    <a routerLink="/about" href="" mat-stroked-button>About</a>
-    <a routerLink="/portfolio" href="" mat-stroked-button>Portfolio</a>
-    <a routerLink="/search" href="" mat-stroked-button>Search</a>
-    <a routerLink="/search" href="" mat-stroked-button>Search</a>
-
-    <div >
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon style="margin-right: 10px;" matBadge="15" matBadgeColor="accent">notifications</mat-icon>
+    <div>
+        <mat-icon>pets</mat-icon>
+        Nyaa-Rock Investments
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>Your friend got new car</button>
-            <button mat-menu-item>You are tagged in sarthak recent pho</button>
+            <button mat-menu-item routerLink="/home">
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
+            </button>
+            <button mat-menu-item routerLink="/about">
+                <mat-icon>info</mat-icon>
+                <span>About</span>
+            </button>
+            <button *ngIf="isLoggedIn" mat-menu-item routerLink="/portfolio">
+                <mat-icon>leaderboard</mat-icon>
+                <span>Portfolio</span>
+            </button>
+            <button *ngIf="isLoggedIn" mat-menu-item routerLink="/search">
+                <mat-icon>query_stats</mat-icon>
+                <span>Search</span>
+            </button>
         </mat-menu>
     </div>
     <div *ngIf="isLoggedIn; else Login">
-        <button mat-raised-button type="button" color="warn" (click)="logout()">Logout</button>
+        <mat-icon>verified_user</mat-icon>
+        <span>&nbsp;&nbsp;Welcome Back,</span>
+        {{ givenname | titlecase }}&nbsp;&nbsp;
+        <button mat-raised-button type="button" color="warn" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
     </div>
 
 </mat-toolbar>
@@ -62,7 +78,8 @@
 <ng-template #Login>
     <div class="center">
         <button mat-raised-button type="button" [routerLink]="['/login']">
-            Login
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
         </button>
     </div>
 </ng-template>

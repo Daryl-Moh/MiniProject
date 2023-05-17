@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.tfip2223miniproject.server.models.Portfolio;
@@ -32,5 +33,13 @@ public class CustomerRepository {
         List<Document> result = mongoTemplate.find(query, Document.class, PORTFOLIO_COL);
         
         return result;
+    }
+
+    public void updatePortfolio(Portfolio p) {
+        Criteria criterial = Criteria.where(USER_ID).regex(p.getUserID(), "i");
+        Query query = Query.query(criterial);
+        Update update = new Update().set("stockSymbols", p.getStockSymbols());
+        mongoTemplate.updateFirst(query, update, Portfolio.class, PORTFOLIO_COL);
+
     }
 }

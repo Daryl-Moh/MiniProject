@@ -39,19 +39,22 @@ export class LoginComponent implements OnInit {
   login() {
     this.isLoading = true;
     setTimeout(() => {
-    }, 2000);
-    const email = this.loginForm.value['email']
-    const password = this.loginForm.value['password']
-    this.authSvc.login(email, password)
-      .then(response => {
-        console.log(response)
-        localStorage.setItem("jwt", response['jwt'])
-        this.router.navigate(['/'])
-        this.isLoggedIn = this.authSvc.isLoggedIn
-      })
-      .catch(error => {
-        console.error(error)
-        window.alert(error)
-      })
+      const email = this.loginForm.value['email']
+      const password = this.loginForm.value['password']
+      this.authSvc.login(email, password)
+        .then(response => {
+          console.log(response)
+          localStorage.setItem("jwt", response['jwt'])
+          this.router.navigate(['/'])
+          this.isLoggedIn = this.authSvc.isLoggedIn
+        })
+        .catch(error => {
+          console.error(error)
+          window.alert("Invalid Login Credentials")
+          this.router.navigate(['/']).then(()=>{
+            window.location.reload()
+          })
+        })
+    }, 1500);
   }
 }

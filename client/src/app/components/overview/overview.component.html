@@ -1,44 +1,65 @@
-<mat-card *ngIf="stockOverview" class="example-card">
-    <mat-card-header>
-      <mat-card-title-group>
-        <mat-card-title>{{stockName}}</mat-card-title>
-        
-      </mat-card-title-group>
-    </mat-card-header>
-    <mat-card-content>
-        <br>
-        Name: {{stockOverview.name}}
-        <br>
-        <br>
-        Description: {{stockOverview.description}}
-        <br>
-        <br>
-        Exchange: {{stockOverview.exchange}}
-        <br>
-        <br>
-        Country: {{stockOverview.country}}
-        <br>
-        <br>
-        Sector: {{stockOverview.sector}}
-        <br>
-        <br>
-        Industry: {{stockOverview.industry}}
-        <br>
-        <br>
-        Dividend Per Share: {{stockOverview.dividendPerShare}}
-        <br>
-        <br>
-        Dividend Yield: {{stockOverview.dividendYield}}
-        <br>
-        <br>
-        52 Week High: {{stockOverview.fiftyTwoWeekHigh}}
-        <br>
-        <br>
-        52 Week Low: {{stockOverview.fiftyTwoWeekLow}}
-        <br>
-        <br>
-    </mat-card-content>
-    <mat-card-subtitle><button mat-raised-button type="button" (click)="addToPortfolio()">Add to portfolio</button></mat-card-subtitle>
-  </mat-card>
-
-
+<mat-card *ngIf="stockOverview" class="card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title>Stock Overview</mat-card-title>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <app-charts stockName={{stockName}}></app-charts>
+    <br>
+    Name: {{stockOverview.name}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Description: {{stockOverview.description}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Exchange: {{stockOverview.exchange}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Country: {{stockOverview.country}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Sector: {{stockOverview.sector}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Industry: {{stockOverview.industry}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Dividend Per Share: {{stockOverview.dividendPerShare}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    Dividend Yield: {{stockOverview.dividendYield}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    52 Week High: {{stockOverview.fiftyTwoWeekHigh}}
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    52 Week Low: {{stockOverview.fiftyTwoWeekLow}}
+    <br>
+    <br>
+  </mat-card-content>
+  <mat-card-subtitle>
+    <mat-card-actions>
+      <button mat-raised-button type="button" (click)="addToPortfolio()">Add to
+        portfolio</button>
+    </mat-card-actions>
+  </mat-card-subtitle>
+</mat-card>

@@ -11,13 +11,14 @@ import { OverviewComponent } from './components/overview/overview.component';
 
 const routes: Routes = [
   
-  { path: '', component: AboutComponent},
+  { path: '', component: HomeComponent},
   { path: 'list/:stockName', component: ListComponent},
   { path: 'search', component: SearchComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'about', component: AboutComponent},
   { path: 'portfolio', component: PortfolioComponent},
+  { path: 'home', component: HomeComponent},
   { path: 'overview/:stockName', component: OverviewComponent},
   { path: "**", redirectTo: "/", pathMatch: 'full' }
 ];

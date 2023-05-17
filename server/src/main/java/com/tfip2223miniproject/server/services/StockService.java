@@ -159,4 +159,8 @@ public class StockService {
         return custRepo.getUserStocks(userID);
     }
 
+    public void updatePortfolio(Portfolio p) {
+        custRepo.updatePortfolio(p);
+    }
+
 }

@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bson.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +35,6 @@ import jakarta.json.JsonArrayBuilder;
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/api/data", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataController {
-
-    private Logger logger = LoggerFactory.getLogger(DataController.class);
 
     @Autowired
     StockService stockSvc;
@@ -110,7 +107,7 @@ public class DataController {
     public ResponseEntity<String> saveUserPortfolio(
             @RequestBody Portfolio portfolio,
             @RequestParam(required = true) String userID) {
-                
+
         List<Document> result = this.stockSvc.getUserStocks(userID);
         if (result.isEmpty()) {
             Portfolio p1 = new Portfolio();
@@ -146,4 +143,17 @@ public class DataController {
         }
     }
 
+    @PutMapping(path = "/update")
+    public ResponseEntity<String> updateUserStocks(
+            @RequestBody Portfolio portfolio,
+            @RequestParam(required = true) String userID) {
+        Portfolio p1 = new Portfolio();
+        p1.setUserID(userID);
+        p1.setStockSymbols(portfolio.getStockSymbols());
+        this.stockSvc.updatePortfolio(p1);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("Portfolio Update Success!");
+    }
 }

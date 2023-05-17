@@ -70,5 +70,25 @@ export class StockService {
         return lastValueFrom(this.httpClient
             .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers })); 
     }
+    
+    savePortfolio(p: Portfolio): Promise<any> {
+        const params = new HttpParams()
+        .set("userID", p.userID.trim());
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        const body=JSON.stringify(p);
+        console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[saveStockSymbol] >>> params = ' + params);
+        console.log('[saveStockSymbol] >>> headers = ' + headers); 
+        return lastValueFrom(this.httpClient.post<Portfolio>(this.API_URI + "/" + p.userID, { params: params, headers: headers }));
+    }
 
+    removeStock(stockName: string): Promise<any> {
+        const params = new HttpParams()
+        .set("userID", this.authSvc.userID.trim());
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[saveStockSymbol] >>> params = ' + params);
+        console.log('[saveStockSymbol] >>> headers = ' + headers); 
+        return lastValueFrom(this.httpClient.post<Portfolio>(this.API_URI + "/", { params: params, headers: headers }));
+    }
 }

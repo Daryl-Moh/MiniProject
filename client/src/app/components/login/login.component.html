@@ -63,7 +63,9 @@
             <mat-card-actions>
                 <button (click)="login()" color="accent" type="submit" mat-raised-button [disabled]="loginForm.invalid">
                     <mat-spinner *ngIf="isLoading" diameter="35"></mat-spinner>
-                    <span *ngIf="!isLoading">Login</span>
+                    <span *ngIf="!isLoading">
+                        Login
+                    </span>
                 </button>
                 <button type="button" mat-raised-button [routerLink]="['/register']">
                     Sign Up

@@ -20,17 +20,13 @@ export class SearchComponent implements OnInit {
     this.form = this.createForm();
   }
 
-  ngOnDestroy(): void {
-
-  }
-
   search() {
     this.isLoading = true;
     setTimeout(() => {
+      const stockName = this.form?.value['stockName'];
+      console.log('[search] navigating to /list >>> charName = ' + stockName);
+      this.router.navigate(['/list', stockName]);
     }, 2000);
-    const stockName = this.form?.value['stockName'];
-    console.log('[search] navigating to /list >>> charName = ' + stockName);
-    this.router.navigate(['/list', stockName]);
   }
 
   private createForm(): FormGroup {

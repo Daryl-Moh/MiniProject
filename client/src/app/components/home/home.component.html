@@ -1,1 +1,36 @@
-<p>This is the Home Page</p>
+<div *ngIf="errorMsg">
+    {{ errorMsg }}
+</div>
+<div *ngIf="stocksList.length <= 0; else list">
+    
+    <div class="outerbox">
+        <table class="stock-table">
+            <tr>
+                <th>Oh no! You do not have any stocks in the list.
+                    <br>
+                    Try using the search function to add some stocks.
+                </th>
+                <th></th>  
+            </tr>
+        </table>
+    </div>
+</div>
+
+<ng-template #list>
+    <div class="outerbox">
+        <table class="stock-table">
+            <tr>
+                <th>Stocks currently in porftfolio</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let stock of stocksList; let i = index">
+                <td>{{ stock }}</td>
+                <td>
+                    <button mat-icon-button type="button" (click)="delete(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</ng-template>
