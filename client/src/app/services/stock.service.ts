@@ -45,6 +45,9 @@ export class StockService {
         console.log('[getStockOverview] >>> params = ' + params);
         console.log('[getStockOverview] >>> headers = ' + headers);
 
+        const url = `${this.API_URI}/overview?${params.toString()}`;
+        console.log('[getStockOverview] >>> url = ', url);
+
         return lastValueFrom(this.httpClient
             .get<StockOverview>(this.API_URI + "/overview", { params: params, headers: headers }));
     }
@@ -112,20 +115,29 @@ export class StockService {
         console.log('[updatePortfolio] >>> jwt = ' + this.authSvc.JWT);
         console.log('[updatePortfolio] >>> params = ' + params);
         console.log('[updatePortfolio] >>> headers = ' + headers);
+
+        const url = `${this.API_URI}/update?${params.toString()}`;
+        console.log('[updatePortfolio] >>> url = ', url);
+
         return lastValueFrom(this.httpClient
             .put<Portfolio>(this.API_URI + "/update", p, { params: params, headers: headers }));
     }
 
-    addToPortfolio(stockName: string, quantity: number): Promise<any> {
-        const params = new HttpParams()
-            .set("userID", this.authSvc.userID.trim())
+    addToPortfolio(userID: string, stockName: string, quantity: number): Promise<any> {
+        let params = new HttpParams()
+            .set("userID", "daryl.moh@hotmail.com")
             .set("stockSymbol", stockName)
             .set("quantity", quantity);
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
         console.log('[addToPortfolio] >>> jwt = ' + this.authSvc.JWT);
-        console.log('[addToPortfolio] >>> params = ', params);
+        console.log('[addToPortfolio] >>> userID = ' + userID);
+        console.log('[addToPortfolio] >>> params = ' + params);
         console.log('[addToPortfolio] >>> headers = ', headers);
+
+        const url = `${this.API_URI}/addstocktoportfolio?${params.toString()}`;
+        console.log('[addToPortfolio] >>> url = ', url);
+
         return lastValueFrom(this.httpClient
-            .put<String[]>(this.API_URI + "/addstocktoportfolio", { params: params, headers: headers }));
+            .put<any>(url, { headers: headers }));
     }
 }

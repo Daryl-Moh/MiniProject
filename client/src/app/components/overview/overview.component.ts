@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StockOverview } from 'src/app/models/stockoverview';
+import { AuthService } from 'src/app/services/auth.service';
 import { StockService } from 'src/app/services/stock.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class OverviewComponent implements OnInit {
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private stockSvc: StockService,
+    private authSvc: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class OverviewComponent implements OnInit {
     const quantity = this.quantityForm?.value['quantity']
     console.log("Adding to portfolio >>> " + quantity)
     console.log("Adding to portfolio >>> " + this.stockName)
-    this.stockSvc.addToPortfolio(this.stockName, quantity)
+    this.stockSvc.addToPortfolio(this.authSvc.userID, this.stockName, quantity)
     // TODO check routings for clash
     this.router.navigate(['/home'])
   }

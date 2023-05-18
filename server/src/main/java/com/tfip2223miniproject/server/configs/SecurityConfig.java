@@ -27,7 +27,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 // require authentication for all other requests
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+                //.authenticated()
                 .and()
                 // set session creation policy to stateless
                 .sessionManagement()
