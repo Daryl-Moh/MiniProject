@@ -1,5 +1,6 @@
 package com.tfip2223miniproject.server.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.tfip2223miniproject.server.models.Portfolio;
+import com.tfip2223miniproject.server.models.PortfolioStock;
 import com.tfip2223miniproject.server.models.Stock;
 import com.tfip2223miniproject.server.models.StockGlobalQuote;
 import com.tfip2223miniproject.server.models.StockOverview;
@@ -160,7 +162,15 @@ public class StockService {
     }
 
     public Boolean updatePortfolio(Portfolio p) {
-        return custRepo.updatePortfolio(p);
-        
+        return custRepo.updatePortfolio(p);   
     }
+
+    public Boolean addStockToPortfolio(String userID, String stockSymbol, Integer quantity) {
+        PortfolioStock ps = new PortfolioStock(stockSymbol, quantity);
+        List<PortfolioStock> psl = new ArrayList<>();
+        psl.add(ps);
+        Portfolio p = new Portfolio(userID, psl);
+        return custRepo.addStockToPortfolio(p);
+    }
+
 }

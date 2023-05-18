@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, lastValueFrom, tap } from "rxjs";
+import { Observable, Subject, catchError, lastValueFrom, map, tap } from "rxjs";
 import { Stock } from "../models/stock";
 import { AuthService } from "./auth.service";
 import { StockOverview } from "../models/stockoverview";
@@ -12,18 +12,21 @@ import { Portfolio } from "../models/portfolio";
 })
 export class StockService {
 
-
+    stocksList: Portfolio[] = []
 
     private API_URI: string = "/api/data";
 
     constructor(
         private httpClient: HttpClient,
-        private authSvc: AuthService) { }
+        private authSvc: AuthService) {}
+
+    showStockList(){
+        return this.stocksList
+    }
 
     getStocks(stockName: string): Promise<any> {
         const params = new HttpParams()
             .set("stockName", stockName);
-
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
         console.log('[getStocks] >>> params = ' + this.authSvc.JWT);
         console.log('[getStocks] >>> params = ' + params);
@@ -70,6 +73,23 @@ export class StockService {
         console.log('[getUserStocks] >>> headers = ' + headers);
 
         return lastValueFrom(this.httpClient
+            .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers })
+            .pipe(
+                tap((data:any) => {
+                    this.stocksList.push(data)
+                })
+            ));
+    }
+
+    getUserStocksArray(userID: string): Promise<Portfolio> {
+        const params = new HttpParams()
+            .set("userID", userID.trim());
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        console.log('[getUserStocksArray] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[getUserStocksArray] >>> params = ' + params);
+        console.log('[getUserStocksArray] >>> headers = ' + headers);
+
+        return lastValueFrom(this.httpClient
             .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers }));
     }
 
@@ -78,9 +98,9 @@ export class StockService {
             .set("userID", p.userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
         const body = JSON.stringify(p);
-        console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
-        console.log('[saveStockSymbol] >>> params = ' + params);
-        console.log('[saveStockSymbol] >>> headers = ' + headers);
+        console.log('[savePortfolio] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[savePortfolio] >>> params = ' + params);
+        console.log('[savePortfolio] >>> headers = ' + headers);
         return lastValueFrom(this.httpClient
             .post<Portfolio>(this.API_URI + "/save" + p.userID, { params: params, headers: headers }));
     }
@@ -89,10 +109,23 @@ export class StockService {
         const params = new HttpParams()
             .set("userID", this.authSvc.userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        console.log('[saveStockSymbol] >>> jwt = ' + this.authSvc.JWT);
-        console.log('[saveStockSymbol] >>> params = ' + params);
-        console.log('[saveStockSymbol] >>> headers = ' + headers);
+        console.log('[updatePortfolio] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[updatePortfolio] >>> params = ' + params);
+        console.log('[updatePortfolio] >>> headers = ' + headers);
         return lastValueFrom(this.httpClient
             .put<Portfolio>(this.API_URI + "/update", p, { params: params, headers: headers }));
+    }
+
+    addToPortfolio(stockName: string, quantity: number): Promise<any> {
+        const params = new HttpParams()
+            .set("userID", this.authSvc.userID.trim())
+            .set("stockSymbol", stockName)
+            .set("quantity", quantity);
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        console.log('[addToPortfolio] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[addToPortfolio] >>> params = ', params);
+        console.log('[addToPortfolio] >>> headers = ', headers);
+        return lastValueFrom(this.httpClient
+            .put<String[]>(this.API_URI + "/addstocktoportfolio", { params: params, headers: headers }));
     }
 }

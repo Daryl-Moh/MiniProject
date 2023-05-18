@@ -179,6 +179,31 @@ public class DataController {
             .contentType(MediaType.APPLICATION_JSON)
             .body("Portfolio Update Failed!");
         }
-        
     }
+
+    @PutMapping(path = "/addstocktoportfolio")
+    public ResponseEntity<String> addStockToPortfolio(
+            @RequestParam(required = true) String userID,
+            @RequestParam(required = true) String stockSymbol,
+            @RequestParam(required = true) Integer quantity) {
+
+        System.out.println("Hitting the @PutMapping userID >>> " + userID );
+        System.out.println("Hitting the @PutMapping stockSymbol >>> " + stockSymbol);
+        System.out.println("Hitting the @PutMapping quantity >>> " + quantity);
+
+        Boolean result = this.stockSvc.addStockToPortfolio(userID, stockSymbol, quantity );
+        
+        if (result == true) {
+            return ResponseEntity
+            .status(HttpStatus.OK)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("Add Stock to Portfolio Success!");
+        } else {
+            return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("Add Stock to Portfolio Failed!");
+        }
+    }
+
 }

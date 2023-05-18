@@ -4,9 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { StockService } from 'src/app/services/stock.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray } from '@angular/forms';
 import { PortfolioStocks } from 'src/app/models/portfoliostocks';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,13 @@ export class HomeComponent {
   stockSymbol: string[] = []
   stockQuantity: number[] = []
   stockPrice: number[] = []
+  stockName = ""
+  quantity = ""
+  param$!: Subscription;
+  tempStockList: Portfolio[] = []
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private stockSvc: StockService,
     private authSvc: AuthService,
     private router: Router) { }
@@ -37,7 +43,8 @@ export class HomeComponent {
         console.log(error.error)
       })
     this.stocksList = this.stockSymbol
-
+    this.tempStockList = this.stockSvc.showStockList()
+    console.log("tempStockList >>> ", this.tempStockList)
   }
 
   delete(index: number): void {

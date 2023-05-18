@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent},
   { path: 'portfolio', component: PortfolioComponent},
   { path: 'home', component: HomeComponent},
-  { path: 'home/:stockName', component: HomeComponent},
+  { path: 'home/:stockName/:quantity', component: HomeComponent},
   { path: 'overview/:stockName', component: OverviewComponent},
   { path: "**", redirectTo: "/", pathMatch: 'full' }
 ];

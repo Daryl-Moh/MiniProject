@@ -37,10 +37,23 @@ public class CustomerRepository {
     }
 
     public Boolean updatePortfolio(Portfolio p) {
-        Query query = new Query(Criteria.where("userID").is(p.getUserID()));
+        Query query = new Query(Criteria.where(USER_ID).is(p.getUserID()));
         Update update = new Update().set("portfolioStocks", p.getPortfolioStocks());
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, Portfolio.class);
         Long modifiedRows = updateResult.getModifiedCount();
+        if (modifiedRows != 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean addStockToPortfolio(Portfolio p) {
+        Query query = new Query(Criteria.where(USER_ID).is(p.getUserID()));
+        Update update = new Update().push("portfolioStocks", p.getPortfolioStocks().get(0));
+        System.out.println("p.getPortfolioStocks() >>> " + p.getPortfolioStocks());
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, Portfolio.class);
+        Long modifiedRows = updateResult.getModifiedCount();
+        System.out.println("updateResult >>> " + updateResult);
         if (modifiedRows != 1) {
             return false;
         }

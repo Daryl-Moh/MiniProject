@@ -3,5 +3,14 @@
 </div>
 <div *ngFor="let ls of stocksList; let i = index">
     {{ls}}
-    <app-charts [stockName]="stocksList[i]"></app-charts>
+    <!-- <app-charts [stockName]="stocksList[i]"></app-charts> -->
+</div>
+<div *ngFor="let p of portfolio; let i = index">
+    {{p.userID}}
+    <div *ngFor="let ps of portfolio[i].portfolioStocks; let i = index">
+        {{ps.stockSymbol}}
+        {{ps.quantity}}
+    </div>
+    
+    <!-- <app-charts [stockName]="stocksList[i]"></app-charts> -->
 </div>
