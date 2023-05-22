@@ -138,7 +138,7 @@ export class StockService {
         console.log('[addToPortfolio] >>> url = ', url);
 
         return lastValueFrom(this.httpClient
-            .put<any>(url, { headers: headers }));
+            .put<any>(url, { headers: headers}));
     }
 
     removeFromPortfolio(userID: string, stockName: string): Promise<any> {

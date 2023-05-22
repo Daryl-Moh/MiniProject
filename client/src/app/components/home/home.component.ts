@@ -24,6 +24,7 @@ export class HomeComponent {
   quantity = ""
   param$!: Subscription;
   tempStockList: Portfolio[] = []
+  isLoggedIn: boolean = false
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,6 +33,13 @@ export class HomeComponent {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (!this.authSvc.isLoggedIn) {
+      window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
+      this.router.navigate(['/login']).then(() => {
+        // window.location.reload()
+      })
+    }
     this.stockSvc.getUserStocks(this.authSvc.userID).then(
       data => {
         data.portfolioStocks.forEach((p) => {

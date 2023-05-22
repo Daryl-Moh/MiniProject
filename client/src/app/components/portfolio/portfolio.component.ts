@@ -15,6 +15,7 @@ export class PortfolioComponent implements OnInit {
   stocksList: string[] = []
   portfolio: Portfolio[] = []
   errorMsg!: string
+  isLoggedIn: boolean = false
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -23,15 +24,13 @@ export class PortfolioComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    // this.stockSvc.getUserStocks(this.authSvc.userID).then(
-    //   data => {
-    //     data.portfolioStocks.forEach((p) => {
-    //       this.stocksList.push(p.stockSymbol)
-    //     })
-    //   }).catch((error: HttpErrorResponse) => {
-    //     this.errorMsg = error.error
-    //     console.log(error.error)
-    //   })
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (!this.authSvc.isLoggedIn) {
+      window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
+      this.router.navigate(['/login']).then(() => {
+        // window.location.reload()
+      })
+    }
     this.stockSvc.getUserStocksArray(this.authSvc.userID).then(
       data => {
           this.portfolio.push(data)
