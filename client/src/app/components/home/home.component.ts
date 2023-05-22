@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { error } from 'highcharts';
 
 @Component({
   selector: 'app-home',
@@ -49,13 +50,17 @@ export class HomeComponent {
       })
     this.stocksList = this.stockSymbol
     this.tempStockList = this.stockSvc.showStockList()
-    console.log("tempStockList >>> ", this.tempStockList)
+    //console.log("tempStockList >>> ", this.tempStockList)
   }
 
   delete(index: number): void {
-    this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stocksList[index])
-    console.log("deleted stock name >>> " + this.stocksList[index])
-      window.location.reload()
+    this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stocksList[index]).catch((error: HttpErrorResponse) => {
+      console.error(error.error)
+    })
+      this.stocksList.splice(index, 1)
+      this.stockQuantity.splice(index, 1)
+      //window.location.reload()
+      console.log("deleted stock name >>> " + this.stocksList[index])
     }
  
 }

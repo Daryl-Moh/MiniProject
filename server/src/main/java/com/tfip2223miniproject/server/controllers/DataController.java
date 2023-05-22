@@ -196,13 +196,11 @@ public class DataController {
         if (result == true) {
             return ResponseEntity
             .status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("Add Stock to Portfolio Success!");
+            .body(Utils.toJSON("Add Stock to Portfolio Success!"));
         } else {
             return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("Add Stock to Portfolio Failed!");
+            .body(Utils.toJSON("Add Stock to Portfolio Failed!"));
         }
     }
 
@@ -221,13 +219,11 @@ public class DataController {
         if (result == true) {
             return ResponseEntity
             .status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("Remove Stock from Portfolio Success!");
+            .body(Utils.toJSON("Remove Stock from Portfolio Success!"));
         } else {
             return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("Remove Stock from Portfolio Failed!");
+            .body(Utils.toJSON("Remove Stock from Portfolio Failed!"));
         }
     }
 

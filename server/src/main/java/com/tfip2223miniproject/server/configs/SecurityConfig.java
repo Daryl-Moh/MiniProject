@@ -22,13 +22,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // disable csrf verification
-        http.csrf().disable()
+        http.csrf().disable().cors().disable()
                 // whitelist account creation and logging in (no token yet)
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/data/**").authenticated()
                 // require authentication for all other requests
                 .anyRequest().permitAll()
-                // .authenticated()
                 .and()
                 // set session creation policy to stateless
                 .sessionManagement()

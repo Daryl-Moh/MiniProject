@@ -50,6 +50,13 @@ public class Utils {
         return JsonObj;
     }
 
+    public static String toJSON(String s) {
+        JsonObject JsonObj = Json.createObjectBuilder()
+            .add("response", s)
+            .build();
+        return JsonObj.toString();
+    }
+
     public static JsonObject toJSON(StockOverview so) {
         JsonObject JsonObj = Json.createObjectBuilder()
             .add("symbol", so.getSymbol())

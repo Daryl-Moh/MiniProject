@@ -18,9 +18,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JWTAuthFilter extends OncePerRequestFilter {
     
     private final JwtService jwtSvc;
@@ -35,6 +37,9 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
+
+        log.info(authHeader);
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             // IF THERE IS NO AUTH IN REQUESTENTITY
             filterChain.doFilter(request, response);
@@ -42,6 +47,9 @@ public class JWTAuthFilter extends OncePerRequestFilter {
         }
         // remove "Bearer " from jwt
         jwt = authHeader.substring(7);
+
+        log.info(jwt);
+
         userEmail = jwtSvc.extractUserName(jwt);
         // check for email and NOT already authenticated
         // if already authenticated dont need check?
