@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { ChartsComponent } from './components/charts/charts.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ChartsComponent } from './components/charts/charts.component';
     RouterModule,
     HighchartsChartModule,
     ChartModule,
+    GoogleMapsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

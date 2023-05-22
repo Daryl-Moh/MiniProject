@@ -8,6 +8,7 @@ import { AboutComponent } from './components/about/about.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'home/:stockName/:quantity', component: HomeComponent},
   { path: 'overview/:stockName', component: OverviewComponent},
+  { path: 'map', component: MapComponent},
   { path: "**", redirectTo: "/", pathMatch: 'full' }
 ];
 
