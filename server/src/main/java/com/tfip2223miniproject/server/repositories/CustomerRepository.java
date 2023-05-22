@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.UpdateResult;
 import com.tfip2223miniproject.server.models.Portfolio;
 
@@ -54,6 +55,26 @@ public class CustomerRepository {
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, Portfolio.class);
         Long modifiedRows = updateResult.getModifiedCount();
         System.out.println("updateResult >>> " + updateResult);
+        if (modifiedRows != 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean removeStockFromPortfolio(String userID, String stockSymbol) {
+        Query query = new Query(Criteria.where(USER_ID).is(userID));
+        // Update update = new Update().pull("stockSymbol", stockSymbol);
+        Update update = new Update().pull("portfolioStocks", new BasicDBObject("stockSymbol", stockSymbol));
+
+        System.out.println("CustomerRepo, userID >>> " + userID);
+        System.out.println("CustomerRepo, stockSymbol >>> " + stockSymbol);
+
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, PORTFOLIO_COL);
+        Long modifiedRows = updateResult.getModifiedCount();
+
+        System.out.println("CustomerRepo, updateResult >>> " + updateResult);
+        System.out.println("CustomerRepo, modifiedRows >>> " + modifiedRows);
+
         if (modifiedRows != 1) {
             return false;
         }

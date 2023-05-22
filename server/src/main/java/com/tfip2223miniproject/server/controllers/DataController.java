@@ -206,4 +206,30 @@ public class DataController {
         }
     }
 
+    @PutMapping(path = "/removestockfromportfolio")
+    public ResponseEntity<String> removeStockFromPortfolio(
+            @RequestParam(required = true) String userID,
+            @RequestParam(required = true) String stockSymbol) {
+
+        System.out.println("Hitting the @PutMapping userID >>> " + userID );
+        System.out.println("Hitting the @PutMapping stockSymbol >>> " + stockSymbol);
+
+        Boolean result = this.stockSvc.removeStockFromPortfolio(userID, stockSymbol);
+
+        System.out.println("Hitting the @PutMapping result >>> " + result);
+        
+        if (result == true) {
+            return ResponseEntity
+            .status(HttpStatus.OK)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("Remove Stock from Portfolio Success!");
+        } else {
+            return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("Remove Stock from Portfolio Failed!");
+        }
+    }
+
+
 }

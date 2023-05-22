@@ -125,7 +125,7 @@ export class StockService {
 
     addToPortfolio(userID: string, stockName: string, quantity: number): Promise<any> {
         let params = new HttpParams()
-            .set("userID", "daryl.moh@hotmail.com")
+            .set("userID", userID)
             .set("stockSymbol", stockName)
             .set("quantity", quantity);
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
@@ -135,6 +135,23 @@ export class StockService {
         console.log('[addToPortfolio] >>> headers = ', headers);
 
         const url = `${this.API_URI}/addstocktoportfolio?${params.toString()}`;
+        console.log('[addToPortfolio] >>> url = ', url);
+
+        return lastValueFrom(this.httpClient
+            .put<any>(url, { headers: headers }));
+    }
+
+    removeFromPortfolio(userID: string, stockName: string): Promise<any> {
+        let params = new HttpParams()
+            .set("userID", userID)
+            .set("stockSymbol", stockName);
+        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+        console.log('[addToPortfolio] >>> jwt = ' + this.authSvc.JWT);
+        console.log('[addToPortfolio] >>> userID = ' + userID);
+        console.log('[addToPortfolio] >>> params = ' + params);
+        console.log('[addToPortfolio] >>> headers = ', headers);
+
+        const url = `${this.API_URI}/removestockfromportfolio?${params.toString()}`;
         console.log('[addToPortfolio] >>> url = ', url);
 
         return lastValueFrom(this.httpClient

@@ -173,4 +173,8 @@ public class StockService {
         return custRepo.addStockToPortfolio(p);
     }
 
+    public Boolean removeStockFromPortfolio(String userID, String stockSymbol) {
+        return custRepo.removeStockFromPortfolio(userID, stockSymbol);
+    }
+
 }

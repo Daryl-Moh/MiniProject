@@ -48,68 +48,11 @@ export class HomeComponent {
   }
 
   delete(index: number): void {
-    const updatedList: string[] = []
+    this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stocksList[index])
     console.log("deleted stock name >>> " + this.stocksList[index])
-    this.stocksList.forEach((s) => {
-      if (s != this.stocksList[index]) {
-        console.log("pushing into updatedList >>> " + s)
-        updatedList.push(s)
-      }
-    })
-    this.stocksList = updatedList
-    console.log("updated list >>> " + updatedList)
-    console.log("stocksList >>> " + this.stocksList)
-
-    const updatedSymbolList: string[] = []
-    console.log("deleted stock name >>> " + this.stockSymbol[index])
-    this.stockSymbol.forEach((s) => {
-      if (s != this.stockSymbol[index]) {
-        console.log("pushing into updatedList >>> " + s)
-        updatedSymbolList.push(s)
-      }
-    })
-    this.stockSymbol = updatedSymbolList
-    console.log("updated list >>> " + updatedSymbolList)
-    console.log("stockSymbol >>> " + this.stockSymbol)
-
-    const updatedQuantityList: number[] = []
-    console.log("deleted stock name >>> " + this.stockQuantity[index])
-    this.stockQuantity.forEach((q) => {
-      if (q != this.stockQuantity[index]) {
-        console.log("pushing into updatedList >>> " + q)
-        updatedQuantityList.push(q)
-      }
-    })
-    this.stockQuantity = updatedQuantityList
-    console.log("updated list >>> " + updatedQuantityList)
-    console.log("stockQuantity >>> " + this.stockQuantity)
-
-    const portfolioStocks: PortfolioStocks[] = [];
-
-    for (let i = 0; i < this.stockSymbol.length; i++) {
-      const stockSymbol = this.stockSymbol[i];
-      const quantity = this.stockQuantity[i];
-
-      const stock: PortfolioStocks = {
-        stockSymbol: stockSymbol,
-        quantity: quantity,
-      };
-      portfolioStocks.push(stock);
-      console.log("portfolioStocks >>> " + portfolioStocks)
+      window.location.reload()
     }
-
-    const portfolio: Portfolio = {
-      userID: this.authSvc.userID,
-      portfolioStocks: portfolioStocks,
-    };
-    console.log("portfolio >>> " + portfolio)
-    this.stockSvc.updatePortfolio(portfolio).then(() => {
-      this.router.navigate(['.']);
-    }).catch((error: any) => {
-      console.error('Error updating portfolio:', error);
-    });
-
-  }
+ 
 }
 
 
