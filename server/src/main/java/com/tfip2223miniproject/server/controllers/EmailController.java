@@ -1,6 +1,7 @@
 package com.tfip2223miniproject.server.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,9 +22,13 @@ public class EmailController {
 
     @PostMapping(path="/send")
     public ResponseEntity<String> sendEmail(
-        @RequestParam String userEmail){
+        @RequestParam(required = true) String userEmail){
+            System.out.println("Hitting the @PostMapping userEmail >>> " + userEmail );
             emailSvc.sendEmail(userEmail);
-            return ResponseEntity.ok("E-mail sent successfully!");
+            return ResponseEntity
+            .status(HttpStatus.OK)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("E-mail sent successfully!");
         }
 
 }

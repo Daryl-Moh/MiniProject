@@ -1,12 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Portfolio } from 'src/app/models/portfolio';
-import { MatTableDataSource } from '@angular/material/table';
 import { StockService } from 'src/app/services/stock.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray } from '@angular/forms';
-import { PortfolioStocks } from 'src/app/models/portfoliostocks';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -37,7 +34,7 @@ export class HomeComponent {
     if (!this.authSvc.isLoggedIn) {
       window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
       this.router.navigate(['/login']).then(() => {
-        // window.location.reload()
+        window.location.reload()
       })
     }
     this.stockSvc.getUserStocks(this.authSvc.userID).then(
