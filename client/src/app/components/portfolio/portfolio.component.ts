@@ -43,8 +43,8 @@ export class PortfolioComponent implements OnInit {
   }
 
   showValue() {
-    console.log("[portfolio] this.stockSymbol >>> ", this.stockSymbol)
-    console.log("[portfolio] this.stockQuantity >>> ", this.stockQuantity)
+    // console.log("[portfolio] this.stockSymbol >>> ", this.stockSymbol)
+    // console.log("[portfolio] this.stockQuantity >>> ", this.stockQuantity)
     for (let i = 0; i < this.stockSymbol.length; i++) {
       const data = {
         name: this.stockSymbol[i],

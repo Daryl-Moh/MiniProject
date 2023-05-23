@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Portfolio } from 'src/app/models/portfolio';
 import { StockService } from 'src/app/services/stock.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -6,18 +6,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { error } from 'highcharts';
+import { YahooStockService } from 'src/app/services/yahoo.stock.service';
+import { YahooStocks } from 'src/app/models/yahoostock';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   errorMsg!: string
   //stocksList: string[] = []
   stockSymbol: string[] = []
   stockQuantity: number[] = []
   stockPrice: number[] = []
+  yahooStockList: YahooStocks[] = []
   stockName = ""
   quantity = ""
   param$!: Subscription;
@@ -33,13 +36,25 @@ export class HomeComponent {
     private activatedRoute: ActivatedRoute,
     private stockSvc: StockService,
     private authSvc: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private yahooSvc: YahooStockService) { }
 
   ngOnInit(): void {
     this.checkLoggedIn()
     this.populateStockList()
+    this.getStockPrices()
   }
 
+  getStockPrices(): void {
+    this.stockSymbol.forEach((s) => {
+      console.log("this.stockSymbol >>> ", s)
+      this.yahooSvc.getStockPrice(s).then(data => {
+        this.yahooStockList.push(data)
+        console.log("this.yahooStockList >>> ", this.yahooStockList)
+      })
+    })
+    
+  }
 
   delete(index: number): void {
     // console.log("stocklist before splice >>> " + this.stockSymbol)
@@ -63,7 +78,9 @@ export class HomeComponent {
           this.stockSymbol.push(p.stockSymbol)
           this.stockQuantity.push(p.quantity)
         })
-      }).catch((error: HttpErrorResponse) => {
+      }).then(() => {
+        this.getStockPrices()
+        }).catch((error: HttpErrorResponse) => {
         this.errorMsg = error.error
         console.log(error.error)
       })

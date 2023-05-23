@@ -12,6 +12,7 @@ import com.tfip2223miniproject.server.models.StockGlobalQuote;
 import com.tfip2223miniproject.server.models.StockOverview;
 import com.tfip2223miniproject.server.models.StockPriceMonthly;
 import com.tfip2223miniproject.server.models.User;
+import com.tfip2223miniproject.server.models.YahooStock;
 
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
@@ -46,6 +47,17 @@ public class Utils {
             .add("type", s.getType())
             .add("region", s.getRegion())
             .add("currency", s.getCurrency())
+            .build();
+        return JsonObj;
+    }
+
+    public static JsonObject toJSON(YahooStock s) {
+        JsonObject JsonObj = Json.createObjectBuilder()
+            .add("symbol", s.getSymbol())
+            .add("currency", s.getCurrency())
+            .add("ask", s.getAsk())
+            .add("trailingAnnualDividendRate", s.getTrailingAnnualDividendRate())
+            .add("trailingAnnualDividendYield", s.getTrailingAnnualDividendYield())
             .build();
         return JsonObj;
     }
@@ -190,5 +202,27 @@ public class Utils {
             return Optional.of(stockpricemonthly);
         return Optional.empty();
     }
+
+    public static Optional<YahooStock> createYahooStock (String json) throws IOException {
+        
+        System.out.println("hitting Utils createYahooStock >>> " + json);
+
+        YahooStock ystk = new YahooStock();
+
+        try (InputStream is = new ByteArrayInputStream(json.getBytes())) {
+            JsonReader r = Json.createReader(is);
+            JsonObject obj = r.readArray().getJsonObject(0);
+
+            ystk = ystk.create(obj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(ystk != null)
+            return Optional.of(ystk);
+        return Optional.empty();
+    }
+
 
 }

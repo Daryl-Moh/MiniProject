@@ -24,19 +24,25 @@
     <div class="outerbox">
         <table class="stock-table">
             <tr >
-                <th>Stocks currently in portfolio</th>
+                <th>Symbol</th>
                 <th>Quantity</th>
+                <th>Currency</th>
                 <th>Stock Price</th>
-                <th>Value</th>
-                <th>Dividends Generated</th>
+                <th>Dividend Rate</th>
+                <th>Dividend Yield</th>
+                <th>Yearly Dividends</th>
                 <th></th>
             </tr>
-            <tr *ngFor="let s of stockSymbol; let i = index">
-                <td>{{ s }}</td>
+            <tr *ngFor="let y of yahooStockList; let i = index">
+                <td>{{ y.symbol }}</td>
                 <td>{{ stockQuantity[i] }}</td>
+                <td>{{ y.currency }}</td>
+                <td>{{ y.ask | number:'.1-2'}}</td>
+                <td>{{ y.trailingAnnualDividendRate | number:'.1-2'}}</td>
+                <td>{{ y.trailingAnnualDividendYield | number:'.1-2'}}</td>
+                <!-- <td>{{ y.trailingAnnualDividendYield | multiply: stockQuantity[i] | number:'.1-2'}}</td> -->
                 <td></td>
-                <td></td>
-                <td></td>
+
 
                 <td>
                     <button mat-icon-button type="button" (click)="delete(i)">
