@@ -30,17 +30,21 @@
                 <th>Stock Price</th>
                 <th>Dividend Rate</th>
                 <th>Dividend Yield</th>
+                <th>Value</th>
                 <th>Yearly Dividends</th>
                 <th></th>
+                <th></th>
+                
             </tr>
             <tr *ngFor="let y of yahooStockList; let i = index">
                 <td>{{ y.symbol }}</td>
                 <td>{{ stockQuantity[i] }}</td>
                 <td>{{ y.currency }}</td>
-                <td>{{ y.ask | number:'.1-2'}}</td>
-                <td>{{ y.trailingAnnualDividendRate | number:'.1-2'}}</td>
-                <td>{{ y.trailingAnnualDividendYield | number:'.1-2'}}</td>
-                <!-- <td>{{ y.trailingAnnualDividendYield | multiply: stockQuantity[i] | number:'.1-2'}}</td> -->
+                <td>${{ y.ask | number:'.1-2'}}</td>
+                <td>${{ y.trailingAnnualDividendRate | number:'.2'}}</td>
+                <td>{{ y.trailingAnnualDividendYield | number:'.2'}}%</td>
+                <td>${{ y.ask | multiply: stockQuantity[i] | number:'.2'}}</td>
+                <td>${{ y.trailingAnnualDividendRate | multiply: stockQuantity[i] | number:'.2'}}</td>
                 <td></td>
 
 
