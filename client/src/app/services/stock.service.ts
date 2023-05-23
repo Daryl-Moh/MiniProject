@@ -12,17 +12,11 @@ import { Portfolio } from "../models/portfolio";
 })
 export class StockService {
 
-    stocksList: Portfolio[] = []
-
     private API_URI: string = "/api/data";
 
     constructor(
         private httpClient: HttpClient,
         private authSvc: AuthService) {}
-
-    showStockList(){
-        return this.stocksList
-    }
 
     getStocks(stockName: string): Promise<any> {
         const params = new HttpParams()
@@ -67,30 +61,25 @@ export class StockService {
         const params = new HttpParams()
             .set("userID", userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        console.log('[getUserStocks] >>> jwt = ' + this.authSvc.JWT);
-        console.log('[getUserStocks] >>> params = ' + params);
-        console.log('[getUserStocks] >>> headers = ' + headers);
-
-        return lastValueFrom(this.httpClient
-            .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers })
-            .pipe(
-                tap((data:any) => {
-                    this.stocksList.push(data)
-                })
-            ));
-    }
-
-    getUserStocksArray(userID: string): Promise<Portfolio> {
-        const params = new HttpParams()
-            .set("userID", userID.trim());
-        const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        console.log('[getUserStocksArray] >>> jwt = ' + this.authSvc.JWT);
-        console.log('[getUserStocksArray] >>> params = ' + params);
-        console.log('[getUserStocksArray] >>> headers = ' + headers);
+        // console.log('[getUserStocks] >>> jwt = ' + this.authSvc.JWT);
+        // console.log('[getUserStocks] >>> params = ' + params);
+        // console.log('[getUserStocks] >>> headers = ' + headers);
 
         return lastValueFrom(this.httpClient
             .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers }));
     }
+
+    // getUserStocksArray(userID: string): Promise<Portfolio> {
+    //     const params = new HttpParams()
+    //         .set("userID", userID.trim());
+    //     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
+    //     console.log('[getUserStocksArray] >>> jwt = ' + this.authSvc.JWT);
+    //     console.log('[getUserStocksArray] >>> params = ' + params);
+    //     console.log('[getUserStocksArray] >>> headers = ' + headers);
+
+    //     return lastValueFrom(this.httpClient
+    //         .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers }));
+    // }
 
     savePortfolio(p: Portfolio): Promise<any> {
         const params = new HttpParams()

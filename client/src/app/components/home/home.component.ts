@@ -22,6 +22,12 @@ export class HomeComponent {
   quantity = ""
   param$!: Subscription;
   isLoggedIn: boolean = false
+    // testValue: any = [
+    //   { name: 'IBM', y: 100},
+    //   { name: 'TSLA', y: 200},
+    //   { name: 'GOOGL', y: 300},
+    //   { name: 'MSFT', y: 150},
+    //   { name: 'AAPL', y: 500}]
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,19 +40,20 @@ export class HomeComponent {
     this.populateStockList()
   }
 
+
   delete(index: number): void {
-    console.log("stocklist before splice >>> " + this.stockSymbol)
-    console.log("stockQuantity before splice >>> " + this.stockQuantity)
+    // console.log("stocklist before splice >>> " + this.stockSymbol)
+    // console.log("stockQuantity before splice >>> " + this.stockQuantity)
     this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stockSymbol[index]).catch((error: HttpErrorResponse) => {
       console.error(error.error)
     })
     //this.stocksList.splice(index, 1)
     this.stockSymbol.splice(index, 1)
     this.stockQuantity.splice(index, 1)
-    console.log("stocklist after splice >>> " + this.stockSymbol)
-    console.log("stockQuantity after splice >>> " + this.stockQuantity)
-    console.log("deleted stock name >>> " + this.stockSymbol[index])
-    console.log("deleted stock quantity >>> " + this.stockQuantity[index])
+    // console.log("stocklist after splice >>> " + this.stockSymbol)
+    // console.log("stockQuantity after splice >>> " + this.stockQuantity)
+    // console.log("deleted stock name >>> " + this.stockSymbol[index])
+    // console.log("deleted stock quantity >>> " + this.stockQuantity[index])
   }
 
   populateStockList(): void {

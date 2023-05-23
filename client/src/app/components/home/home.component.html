@@ -22,11 +22,13 @@
             <tr >
                 <th>Stocks currently in portfolio</th>
                 <th>Quantity</th>
+                <th>Stock Price</th>
                 <th></th>
             </tr>
             <tr *ngFor="let s of stockSymbol; let i = index">
                 <td>{{ s }}</td>
                 <td>{{ stockQuantity[i] }}</td>
+                <td>{{ stockPrice[i] }}</td>
                 <td>
                     <button mat-icon-button type="button" (click)="delete(i)">
                         <mat-icon>delete</mat-icon>
@@ -34,5 +36,8 @@
                 </td>  
             </tr>
         </table>
+    </div>
+    <div>
+        <app-portfolio [stockSymbol]="stockSymbol" [stockQuantity]="stockQuantity" ></app-portfolio>
     </div>
 </ng-template>

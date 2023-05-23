@@ -51,6 +51,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     HighchartsChartModule,
     ChartModule,
     GoogleMapsModule,
+    ChartModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
