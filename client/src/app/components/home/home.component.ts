@@ -14,14 +14,13 @@ import { error } from 'highcharts';
 })
 export class HomeComponent {
   errorMsg!: string
-  stocksList: string[] = []
+  //stocksList: string[] = []
   stockSymbol: string[] = []
   stockQuantity: number[] = []
   stockPrice: number[] = []
   stockName = ""
   quantity = ""
   param$!: Subscription;
-  tempStockList: Portfolio[] = []
   isLoggedIn: boolean = false
 
   constructor(
@@ -31,13 +30,26 @@ export class HomeComponent {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authSvc.isLoggedIn
-    if (!this.authSvc.isLoggedIn) {
-      window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
-      this.router.navigate(['/login']).then(() => {
-        window.location.reload()
-      })
-    }
+    this.checkLoggedIn()
+    this.populateStockList()
+  }
+
+  delete(index: number): void {
+    console.log("stocklist before splice >>> " + this.stockSymbol)
+    console.log("stockQuantity before splice >>> " + this.stockQuantity)
+    this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stockSymbol[index]).catch((error: HttpErrorResponse) => {
+      console.error(error.error)
+    })
+    //this.stocksList.splice(index, 1)
+    this.stockSymbol.splice(index, 1)
+    this.stockQuantity.splice(index, 1)
+    console.log("stocklist after splice >>> " + this.stockSymbol)
+    console.log("stockQuantity after splice >>> " + this.stockQuantity)
+    console.log("deleted stock name >>> " + this.stockSymbol[index])
+    console.log("deleted stock quantity >>> " + this.stockQuantity[index])
+  }
+
+  populateStockList(): void {
     this.stockSvc.getUserStocks(this.authSvc.userID).then(
       data => {
         data.portfolioStocks.forEach((p) => {
@@ -48,21 +60,19 @@ export class HomeComponent {
         this.errorMsg = error.error
         console.log(error.error)
       })
-    this.stocksList = this.stockSymbol
-    this.tempStockList = this.stockSvc.showStockList()
-    //console.log("tempStockList >>> ", this.tempStockList)
+    //this.stocksList = this.stockSymbol
   }
 
-  delete(index: number): void {
-    this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stocksList[index]).catch((error: HttpErrorResponse) => {
-      console.error(error.error)
-    })
-      this.stocksList.splice(index, 1)
-      this.stockQuantity.splice(index, 1)
-      //window.location.reload()
-      console.log("deleted stock name >>> " + this.stocksList[index])
+  checkLoggedIn(): void {
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (!this.authSvc.isLoggedIn) {
+      window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload()
+      })
     }
- 
+  }
+
 }
 
 

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { firstValueFrom } from 'rxjs';
 import jwt_decode from 'jwt-decode';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +14,8 @@ export class AuthService {
     
     constructor(
         private http: HttpClient,
-        private router: Router) { }
+        private router: Router,
+        private jwtHelper: JwtHelperService) { }
 
     get isLoggedIn() {
         return !!localStorage.getItem('jwt')
@@ -42,7 +43,13 @@ export class AuthService {
 
     get JWT() {
         const token = localStorage.getItem(this.JWT_TOKEN_NAME)
+        if (token != null && this.jwtHelper.isTokenExpired(token)) {
+            console.warn("JWT expired")
+            this.logout()
+            return null
+          } else {
             return token
+          }
         
     }
 

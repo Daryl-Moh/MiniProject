@@ -48,8 +48,7 @@ export class OverviewComponent implements OnInit {
     console.log("Adding to portfolio >>> " + quantity)
     console.log("Adding to portfolio >>> " + this.stockName)
     this.stockSvc.addToPortfolio(this.authSvc.userID, this.stockName, quantity)
-    // TODO check routings for clash
-    this.router.navigate(['/home'])
+      .then(() => this.router.navigate(['/home']))
   }
 
   private createForm(): FormGroup {

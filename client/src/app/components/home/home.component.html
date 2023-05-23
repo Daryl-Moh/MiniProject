@@ -1,7 +1,7 @@
 <div *ngIf="errorMsg">
     {{ errorMsg }}
 </div>
-<div *ngIf="stocksList.length <= 0; else list">
+<div *ngIf="stockSymbol.length <= 0; else list">
     
     <div class="outerbox">
         <table class="stock-table">
@@ -24,7 +24,7 @@
                 <th>Quantity</th>
                 <th></th>
             </tr>
-            <tr *ngFor="let s of stocksList; let i = index">
+            <tr *ngFor="let s of stockSymbol; let i = index">
                 <td>{{ s }}</td>
                 <td>{{ stockQuantity[i] }}</td>
                 <td>

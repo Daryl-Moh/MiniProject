@@ -23,6 +23,7 @@ import { MapComponent } from './components/map/map.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -55,9 +56,16 @@ import { GoogleMapsModule } from '@angular/google-maps';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("jwt")
+        }
+      }
     })
   ],
-  providers: [],
+  providers: [JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
