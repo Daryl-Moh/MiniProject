@@ -23,7 +23,13 @@ export class StockService {
             .set("stockName", stockName);
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
         return lastValueFrom(this.httpClient
-            .get<Stock[]>(this.API_URI + "/search", { params: params, headers: headers }));
+            .get<Stock[]>(this.API_URI + "/search", { params: params, headers: headers })
+            .pipe(
+                catchError((error) => {
+                  console.error('An error occurred:', error);
+                  throw new Error('The stock you are looking for is unavailable');
+                })
+              ));
     }
 
     getStockOverview(stockName: string): Promise<any> {
@@ -39,7 +45,13 @@ export class StockService {
         console.log('[getStockOverview] >>> url = ', url);
 
         return lastValueFrom(this.httpClient
-            .get<StockOverview>(this.API_URI + "/overview", { params: params, headers: headers }));
+            .get<StockOverview>(this.API_URI + "/overview", { params: params, headers: headers })
+            .pipe(
+                catchError((error) => {
+                  console.error('An error occurred:', error);
+                  throw new Error('The stock you are looking for is unavailable');
+                })
+        ));
     }
 
     getStockPriceMonthly(stockName: string): Promise<StockPriceMonthly> {

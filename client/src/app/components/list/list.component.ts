@@ -26,15 +26,26 @@ export class ListComponent implements OnInit{
       async (params) => {
         this.stockName = params['stockName'];
         console.log('[ngOnInit] >>> this.stockName = ' + this.stockName);
-        const lst = await this.stockSvc.getStocks(this.stockName);
-        this.currentIndex = 1;
-        console.log('[ngOnInit] >>> stockSvc.getStocks ' + lst);
-        if (lst === undefined || lst.length == 0) {
-          this.router.navigate(['/'])
-        } else {
-          this.stocks = lst;
-        }
-      }
+        await this.stockSvc.getStocks(this.stockName)
+        .then(response => {
+          if (response == null) {
+            this.router.navigate(['/search'])
+          }
+          this.stocks=(response);
+          
+        }).catch((error) => {
+          this.router.navigate(['/search'])
+          window.alert("The stock you have selected cannot be found")
+          console.error(error)
+        })
+      //   this.currentIndex = 1;
+      //   console.log('[ngOnInit] >>> stockSvc.getStocks ' + lst);
+      //   if (lst === undefined || lst.length == 0) {
+      //     this.router.navigate(['/search'])
+      //   } else {
+      //     this.stocks = lst;
+      //   }
+      } 
     );
 
   }

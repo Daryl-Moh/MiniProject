@@ -16,6 +16,7 @@ export class OverviewComponent implements OnInit {
   quantityForm!: FormGroup
 
   stockName = ""
+  stockPrice!: number
   param$!: Subscription
   stockOverview!: StockOverview
 
@@ -34,8 +35,11 @@ export class OverviewComponent implements OnInit {
         console.log('[ngOnInt - OverviewComponent] >>> this.stockName = ' + this.stockName);
         this.stockOverview = await this.stockSvc.getStockOverview(this.stockName);
         console.log('[ngOnInt - OverviewComponent] >>> stockSvc.getStockOverview = ' + this.stockOverview)
+        this.stockPrice = ( this.stockOverview.marketCap / this.stockOverview.sharesOutstanding )
+        console.log('[ngOnInt - OverviewComponent] >>> stockSvc.stockPrice = ' + this.stockPrice)
       }
     )
+
   }
 
   ngOnDestroy(): void {
@@ -45,8 +49,9 @@ export class OverviewComponent implements OnInit {
 
   addToPortfolio() {
     const quantity = this.quantityForm?.value['quantity']
-    console.log("Adding to portfolio >>> " + quantity)
     console.log("Adding to portfolio >>> " + this.stockName)
+    console.log("Adding to portfolio >>> " + quantity)
+    console.log("Adding to portfolio >>> " + this.stockPrice)
     this.stockSvc.addToPortfolio(this.authSvc.userID, this.stockName, quantity)
       .then(() => this.router.navigate(['/home']))
   }
