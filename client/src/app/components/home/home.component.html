@@ -1,3 +1,4 @@
+
 <div *ngIf="errorMsg">
     {{ errorMsg }}
 </div>
@@ -17,6 +18,9 @@
 </div>
 
 <ng-template #list>
+    <div>
+        <app-portfolio [stockSymbol]="stockSymbol" [stockQuantity]="stockQuantity" ></app-portfolio>
+    </div>
     <div class="outerbox">
         <table class="stock-table">
             <tr >
@@ -37,7 +41,5 @@
             </tr>
         </table>
     </div>
-    <div>
-        <app-portfolio [stockSymbol]="stockSymbol" [stockQuantity]="stockQuantity" ></app-portfolio>
-    </div>
+   
 </ng-template>

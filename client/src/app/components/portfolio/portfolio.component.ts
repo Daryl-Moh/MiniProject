@@ -55,25 +55,28 @@ export class PortfolioComponent implements OnInit {
   }
 
   pieChart = new Chart({
-    
+
     chart: {
       type: 'pie',
-      plotShadow: false
+      plotShadow: true
     },
     credits: {
       enabled: false,
     },
     tooltip: {
-      pointFormat: '{series.name}: Value: <b>{point.y}</b> Percentrage: <b>{point.percentage:.1f}%</b> <br>{point.custom.extraInformation}'
+      pointFormat: 'Quantity: <b>{point.y}</b> <br>Percentage: <b>{point.percentage:.1f}%</b>'
     },
     plotOptions: {
       pie: {
-        innerSize: '99%',
-        borderWidth: 10,
-        borderColor: '',
+        innerSize: '90%',
+        borderWidth: 2,
+        borderColor: 'black',
         slicedOffset: 10,
+        animation: {
+          defer: 500
+        },
         dataLabels: {
-          connectorWidth: 0,
+          connectorWidth: 2,
         },
       },
     },

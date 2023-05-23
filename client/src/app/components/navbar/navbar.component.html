@@ -7,10 +7,6 @@
         </button>
         <mat-menu #menu="matMenu">
             <button *ngIf="isLoggedIn" mat-menu-item routerLink="/home" routerLinkActive="active_route">
-                <mat-icon>home</mat-icon>
-                <span>Home</span>
-            </button>
-            <button *ngIf="isLoggedIn" mat-menu-item routerLink="/portfolio" routerLinkActive="active_route">
                 <mat-icon>leaderboard</mat-icon>
                 <span>Portfolio</span>
             </button>
@@ -21,10 +17,6 @@
             <button mat-menu-item routerLink="/about" routerLinkActive="active_route">
                 <mat-icon>info</mat-icon>
                 <span>About</span>
-            </button>
-            <button mat-menu-item routerLink="/map" routerLinkActive="active_route">
-                <mat-icon>map</mat-icon>
-                <span>Map</span>
             </button>
         </mat-menu>
     </div>
