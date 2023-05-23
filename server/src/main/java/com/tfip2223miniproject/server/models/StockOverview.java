@@ -19,10 +19,12 @@ public class StockOverview implements Serializable {
     private String country;
     private String sector;
     private String industry;
+    private Float marketCap;
     private Float dividendPerShare;
     private Float dividendYield;
     private Float fiftyTwoWeekHigh;
     private Float fiftyTwoWeekLow;
+    private Float sharesOutstanding;
 
     public StockOverview create (JsonObject obj) {
         StockOverview stkovr = new StockOverview();
@@ -33,10 +35,12 @@ public class StockOverview implements Serializable {
         stkovr.setCountry(obj.getString("Country"));
         stkovr.setSector(obj.getString("Sector"));
         stkovr.setIndustry(obj.getString("Industry"));
+        stkovr.setMarketCap(Float.parseFloat(obj.getString("MarketCapitalization")));
         stkovr.setDividendPerShare(Float.parseFloat(obj.getString("DividendPerShare")));
         stkovr.setDividendYield(Float.parseFloat(obj.getString("DividendYield")));
         stkovr.setFiftyTwoWeekHigh(Float.parseFloat(obj.getString("52WeekHigh")));
         stkovr.setFiftyTwoWeekLow(Float.parseFloat(obj.getString("52WeekLow")));
+        stkovr.setSharesOutstanding(Float.parseFloat(obj.getString("SharesOutstanding")));
 
         return stkovr;
     }

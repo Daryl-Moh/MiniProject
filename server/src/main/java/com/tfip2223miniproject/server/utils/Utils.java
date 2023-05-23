@@ -66,10 +66,12 @@ public class Utils {
             .add("country", so.getCountry())
             .add("sector", so.getSector())
             .add("industry", so.getIndustry())
+            .add("marketCap", so.getMarketCap())
             .add("dividendPerShare", so.getDividendPerShare())
             .add("dividendYield", so.getDividendYield())
             .add("fiftyTwoWeekHigh", so.getFiftyTwoWeekHigh())
             .add("fiftyTwoWeekLow", so.getFiftyTwoWeekLow())
+            .add("sharesOutstanding", so.getSharesOutstanding())
             .build();
 
         return JsonObj;

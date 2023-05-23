@@ -28,10 +28,6 @@ export class StockService {
         const params = new HttpParams()
             .set("stockName", stockName);
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        console.log('[getStocks] >>> params = ' + this.authSvc.JWT);
-        console.log('[getStocks] >>> params = ' + params);
-        console.log('[getStocks] >>> headers = ' + headers);
-
         return lastValueFrom(this.httpClient
             .get<Stock[]>(this.API_URI + "/search", { params: params, headers: headers }));
     }

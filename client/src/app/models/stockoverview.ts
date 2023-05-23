@@ -6,10 +6,12 @@ export interface StockOverview {
     country: string;
     sector: string;
     industry: string;
+    marketCap: number;
     dividendPerShare: number;
     dividendYield: number;
     fiftyTwoWeekHigh: number;
     fiftyTwoWeekLow: number;
+    sharesOutstanding: number;
 
 }
 
