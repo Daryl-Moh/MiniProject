@@ -61,10 +61,14 @@ export class HomeComponent implements OnInit {
     // console.log("stockQuantity before splice >>> " + this.stockQuantity)
     this.stockSvc.removeFromPortfolio(this.authSvc.userID, this.stockSymbol[index]).catch((error: HttpErrorResponse) => {
       console.error(error.error)
+    }).then(() => {
+      this.stockSymbol.splice(index, 1)
+      this.stockQuantity.splice(index, 1)
+      this.yahooStockList.splice(index, 1)
+      location.reload()
     })
     //this.stocksList.splice(index, 1)
-    this.stockSymbol.splice(index, 1)
-    this.stockQuantity.splice(index, 1)
+    
     // console.log("stocklist after splice >>> " + this.stockSymbol)
     // console.log("stockQuantity after splice >>> " + this.stockQuantity)
     // console.log("deleted stock name >>> " + this.stockSymbol[index])

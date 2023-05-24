@@ -10,4 +10,6 @@ public class Constants {
 
     public static final String PORTFOLIO_COL = "portfolio";
     public static final String USER_ID = "userID";
+    public static final String STOCK_SYMBOL = "symbol";
+    public static final String STOCKINFO_COL = "stockinfo";
 }

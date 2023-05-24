@@ -50,6 +50,7 @@ public class Utils {
             .build();
         return JsonObj;
     }
+    
 
     public static JsonObject toJSON(YahooStock s) {
         JsonObject JsonObj = Json.createObjectBuilder()
