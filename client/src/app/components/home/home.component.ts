@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   stockQuantity: number[] = []
   stockPrice: number[] = []
   yahooStockList: YahooStocks[] = []
-  stockName = ""
   quantity = ""
   param$!: Subscription;
   isLoggedIn: boolean = false

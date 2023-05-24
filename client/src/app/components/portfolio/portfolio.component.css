@@ -1,5 +1,7 @@
 .charts {
     border: solid 2px;
+    border-color: grey;
+    border-radius: 15px;
     margin-top: 25px;
     margin-bottom: 25px;
     margin-left: 25px;
@@ -7,3 +9,4 @@
     padding-top: 25px;
     padding-bottom: 25px;
 }
+

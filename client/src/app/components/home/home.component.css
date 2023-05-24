@@ -29,3 +29,20 @@
     margin-bottom: 20px;
 }
 
+.centerbox {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.box {
+  max-width: 100%;
+  max-height: 100%;
+  margin-bottom: 20px;
+}
+
+mat-card {
+  margin-top: 10%;
+  padding: 40px;
+  max-width: 100%;
+  background-color: whitesmoke;
+}
