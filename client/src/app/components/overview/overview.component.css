@@ -1,8 +1,78 @@
-mat-card-actions {
-    display: flex;
+/* mat-card {
+
     justify-content: space-evenly;
 }
 
 .container mat-form-field+mat-form-field {
     margin-left: 8px;
 }
+
+.flex {
+    display: flex;
+}
+
+.m-auto {
+    margin: auto;
+}
+*/
+mat-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button {
+    border: none;
+    border-radius: 10px;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: darkgrey;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .button:hover {
+    background-color: #555;
+  } 
+
+  .centerbox {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card {
+    margin-top: 5%;
+    padding: 20px;
+    width: 750px;
+    background-color: white;
+}
+
+.flex {
+    display: flex;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+mat-card-title {
+    padding: 15px ;
+}
+
+mat-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+  

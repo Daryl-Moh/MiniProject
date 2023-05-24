@@ -1,5 +1,4 @@
-
-<div *ngIf="errorMsg">
+<!-- <div *ngIf="errorMsg">
     {{ errorMsg }}
 </div>
 <div *ngIf="stockSymbol.length <= 0; else list">
@@ -15,26 +14,37 @@
             </tr>
         </table>
     </div>
+</div> -->
+
+<div *ngIf="stockSymbol.length <= 0; else list">
+    <mat-card>
+        <mat-card-content>
+            <div class="outerbox">
+                <table class="stock-table">
+                    <tr>
+                        <th>Oh no! You do not have any stocks in the list.
+                            <br>
+                            Try using the search function to add some stocks.
+                        </th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>
 
 <ng-template #list>
-
     <div class="centerbox">
         <div>
-            <app-portfolio [stockSymbol]="stockSymbol" [stockQuantity]="stockQuantity" ></app-portfolio>
+            <app-portfolio [stockSymbol]="stockSymbol" [stockQuantity]="stockQuantity"></app-portfolio>
         </div>
-        <div class ="box">
-            <mat-card>
-                <mat-card-content>
-                    
-                </mat-card-content>
-            </mat-card>
+        <div class="box">
         </div>
     </div>
-    
     <div class="outerbox">
         <table class="stock-table">
-            <tr >
+            <tr>
                 <th>Symbol</th>
                 <th>Quantity</th>
                 <th>Currency</th>
@@ -45,7 +55,6 @@
                 <th>Yearly Dividends</th>
                 <th></th>
                 <th></th>
-                
             </tr>
             <tr *ngFor="let y of yahooStockList; let i = index">
                 <td>{{ y.symbol }}</td>
@@ -57,18 +66,14 @@
                 <td>${{ y.ask | multiply: stockQuantity[i] | number:'.2'}}</td>
                 <td>${{ y.trailingAnnualDividendRate | multiply: stockQuantity[i] | number:'.2'}}</td>
                 <td></td>
-
-
                 <td>
                     <mat-chip>
                         <button mat-icon-button type="button" (click)="delete(i)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mat-chip>
-                </td>  
+                </td>
             </tr>
         </table>
     </div>
-   
 </ng-template>
-
