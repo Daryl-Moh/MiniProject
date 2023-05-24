@@ -18,6 +18,10 @@
                 <mat-icon>info</mat-icon>
                 <span>About</span>
             </button>
+            <button mat-menu-item routerLink="/map" routerLinkActive="active_route">
+                <mat-icon>map</mat-icon>
+                <span>Contact Us</span>
+            </button>
         </mat-menu>
     </div>
     <div *ngIf="isLoggedIn; else Login">

@@ -10,6 +10,11 @@ body {
   *, *:before, *:after {
     box-sizing: inherit;
   }
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+  }
   
   .about-section {
     padding: 50px;
@@ -31,18 +36,20 @@ body {
   
   .title {
     color: grey;
+    font-size: larger;
   }
   
   .button {
     border: none;
+    border-radius: 10px;
     outline: 0;
     display: inline-block;
     padding: 8px;
     color: white;
-    background-color: #000;
+    background-color: grey;
     text-align: center;
     cursor: pointer;
-    width: 95%;
+    width: 100%;
   }
   
   .button:hover {
@@ -64,7 +71,7 @@ body {
 mat-card {
     margin-top: 10%;
     padding: 40px;
-    width: 100%;
+    max-width: 700px;
     background-color: whitesmoke;
 }
 

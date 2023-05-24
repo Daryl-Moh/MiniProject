@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { EmailService } from 'src/app/services/email.service';
+import { MapComponent } from '../map/map.component';
+import { PortfolioComponent } from '../portfolio/portfolio.component';
+import { MemeComponent } from '../meme/meme.component';
 
 @Component({
   selector: 'app-about',
@@ -17,7 +21,8 @@ export class AboutComponent implements OnInit {
   constructor(
     private router: Router,
     private authSvc: AuthService,
-    private emailSvc: EmailService) {}
+    private emailSvc: EmailService,
+    public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.mapOptions = {
@@ -41,4 +46,11 @@ export class AboutComponent implements OnInit {
     }
   }
 
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(MemeComponent, {
+      width: '100%',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
 }

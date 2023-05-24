@@ -1,7 +1,7 @@
 
 mat-card {
-    margin-top: 10%;
-    padding: 40px;
+    margin-top: 15px;
+    padding: 20px;
     width: 100%;
     background-color: whitesmoke;
 }
@@ -14,5 +14,8 @@ mat-card {
     margin: auto;
 }
 
-
+.mat-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 

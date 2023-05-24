@@ -25,6 +25,7 @@ import { ChartsComponent } from './components/charts/charts.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { MultiplyPipe } from './multiply.pipe';
+import { MemeComponent } from './components/meme/meme.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MultiplyPipe } from './multiply.pipe';
     MapComponent,
     OverviewComponent,
     ChartsComponent,
-    MultiplyPipe
+    MultiplyPipe,
+    MemeComponent
   ],
   imports: [
     BrowserModule,
