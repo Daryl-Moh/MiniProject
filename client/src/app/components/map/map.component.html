@@ -1,4 +1,23 @@
-<google-map [options]="mapOptions">
-    <map-marker [options]="markerOptions">
-    </map-marker>
-  </google-map>
+<!-- <div class="column">
+  <div class="card">
+    <div class="container">
+      <google-map [options]="mapOptions">
+        <map-marker [options]="markerOptions">
+        </map-marker>
+      </google-map>
+    </div>
+  </div>
+</div> -->
+
+<div class="flex">
+  <div class="m-auto">
+    <mat-card>
+      <mat-card-content>
+        <google-map [options]="mapOptions">
+          <map-marker [options]="markerOptions">
+          </map-marker>
+        </google-map>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

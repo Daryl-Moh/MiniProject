@@ -1,0 +1,18 @@
+
+mat-card {
+    margin-top: 10%;
+    padding: 40px;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.flex {
+    display: flex;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+
+

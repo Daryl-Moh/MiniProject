@@ -11,18 +11,6 @@ body {
     box-sizing: inherit;
   }
   
-  .column {
-    float: left;
-    width: 33.3%;
-    margin-bottom: 16px;
-    padding: 0 8px;
-  }
-  
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 8px;
-  }
-  
   .about-section {
     padding: 50px;
     text-align: center;
@@ -67,3 +55,37 @@ body {
       display: block;
     }
   }
+
+  .centerbox {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+mat-card {
+    margin-top: 10%;
+    padding: 40px;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.flex {
+    display: flex;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+mat-card-title {
+    padding: 15px ;
+}
+
+mat-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

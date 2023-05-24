@@ -36,6 +36,8 @@ export class AboutComponent implements OnInit {
       this.router.navigate(["/login"])
     } else {
       this.emailSvc.sendEmail(this.authSvc.userID)
+      window.alert("Thank you for your interest. \nWe will contact you within 3-5 business days.")
+      this.router.navigate(["/home"])
     }
   }
 
