@@ -33,10 +33,30 @@ export class OverviewComponent implements OnInit {
       async (params) => {
         this.stockName = params['stockName'];
         console.log('[ngOnInt - OverviewComponent] >>> this.stockName = ' + this.stockName);
-        this.stockOverview = await this.stockSvc.getStockOverview(this.stockName);
-        console.log('[ngOnInt - OverviewComponent] >>> stockSvc.getStockOverview = ' + this.stockOverview)
+        //this.stockOverview = await this.stockSvc.getStockOverview(this.stockName);
+
+        try {
+          const response = await this.stockSvc.getStockOverview(this.stockName);
+          // console.log("[ngOnInit - OverviewComponent] stockOverview response >>> ", response);
+          this.stockOverview = response;
+        } catch (error) {
+          console.error(error);
+          // Handle the error here
+          this.router.navigate(['/search']);
+          window.alert("Failed to retrieve stock overview. Please try again.");
+        }
+
+        // await this.stockSvc.getStockOverview(this.stockName).then((response) => {
+        //   console.log("[ngOnInt - OverviewComponent] stockOverview response >>> ", response)
+        //   this.stockOverview=(response)
+        //   // if(this.stockOverview === null){
+        //   //   this.router.navigate(['/search'])
+        //   //   window.alert("The stock you have selected cannot be found")
+        //   // }
+        // })
+        // console.log('[ngOnInt - OverviewComponent] >>> stockSvc.getStockOverview = ' + this.stockOverview)
         this.stockPrice = ( this.stockOverview.marketCap / this.stockOverview.sharesOutstanding )
-        console.log('[ngOnInt - OverviewComponent] >>> stockSvc.stockPrice = ' + this.stockPrice)
+        // console.log('[ngOnInt - OverviewComponent] >>> stockSvc.stockPrice = ' + this.stockPrice)
       }
     )
 

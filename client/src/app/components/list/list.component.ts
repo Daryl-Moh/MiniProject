@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, isEmpty } from 'rxjs';
 import { Stock } from 'src/app/models/stock';
 import { StockService } from 'src/app/services/stock.service';
 
@@ -25,26 +25,20 @@ export class ListComponent implements OnInit{
     this.param$ = this.activatedRoute.params.subscribe(
       async (params) => {
         this.stockName = params['stockName'];
-        console.log('[ngOnInit] >>> this.stockName = ' + this.stockName);
+        // console.log('[ngOnInit] >>> this.stockName = ' + this.stockName);
         await this.stockSvc.getStocks(this.stockName)
         .then(response => {
-          if (response == null) {
-            this.router.navigate(['/search'])
-          }
+          // console.log("response from get stockoverview >>> ", response)
           this.stocks=(response);
-          
+          if(this.stocks.length == 0){
+            this.router.navigate(['/search'])
+            window.alert("The stock you have selected cannot be found")
+          }
         }).catch((error) => {
           this.router.navigate(['/search'])
           window.alert("The stock you have selected cannot be found")
           console.error(error)
         })
-      //   this.currentIndex = 1;
-      //   console.log('[ngOnInit] >>> stockSvc.getStocks ' + lst);
-      //   if (lst === undefined || lst.length == 0) {
-      //     this.router.navigate(['/search'])
-      //   } else {
-      //     this.stocks = lst;
-      //   }
       } 
     );
 
