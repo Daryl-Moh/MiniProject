@@ -1,169 +1,154 @@
 <div class="about-section">
   <h1><mat-icon>pets</mat-icon> About Us <mat-icon>pets</mat-icon></h1>
-  <p style="text-align:center">A company dedicated to get you on the path towards financial freedom. 
-    Our CEO Nyaa Neko and his trusted companion created the company in 2023 because 
-    they could never tell how much annual dividends they were getting with a glance. 
-    However, that all changed when this company was formed and are proud to announce 
+  <p style="text-align:center">A company dedicated to get you on the path towards financial freedom.
+    Our CEO Nyaa Neko and his trusted companion created the company in 2023 because
+    they could never tell how much annual dividends they were getting with a glance.
+    However, that all changed when this company was formed and are proud to announce
     our 100,000th subscriber to this wonderful service.</p>
+  <br>
+  <p>We are also the proud sponsor of 10,000 abandoned pets through our non-profit organization called
+    "Paw Pals".
+    <br>
+    If you would like to make a donation, please click on the button below.
+  </p>
+  <br>
+  <button mat-raised-button color="accent" (click)="openBottomSheet()">Donate</button>
 </div>
 <br>
 <h1 style="text-align:center">Our Team</h1>
+
 <div class="flex">
   <div class="m-auto">
-    <div class="flex">
-      <div class="m-auto">
+    <mat-card>
+      <img src="./assets/img/catCEO.png" style="width:100%; border-radius: 20px;">
+      <mat-card-content>
         <mat-card>
-          <img src="./assets/img/catCEO.png" style="width:100%; border-radius: 20px;">
-          <mat-card-content>
-            <mat-card>
-              <h2>Nyaa Cat</h2>
-              <h3 class="title">
-                <mat-chip (click)="openDialog('3000ms', '500ms')">
-                  CEO & Founder
-              </mat-chip></h3>
-              <p style="text-align: justify;">Meow and welcome to 
-                Nyaarock Investments! I'm Nyaa Cat, the purr-sident 
-                and CEO of this prestigious investment firm. With my 
-                feline intuition and keen eye for opportunities, 
-                I lead a team of financial experts on a mission 
-                to guide you towards financial freedom.
-                <br>
-                <br>
-                At Nyaarock Investments, we believe in tailoring 
-                investment strategies to your unique needs. 
-                Whether you're a savvy investor or just starting 
-                your financial journey, we're here to provide expert 
-                advice and create a pawsitive investment experience 
-                for you.
-                <br>
-                <br>
-                Our dedication to excellence and unrivaled 
-                commitment to our clients sets us apart. 
-                We pride ourselves on staying ahead of 
-                the pack by analyzing market trends, hunting 
-                for the best investment opportunities, and 
-                ensuring your investments are well-nurtured.
-                <br>
-                <br>
-                With a proven track record and a purrfect 
-                blend of professionalism and passion, we're 
-                ready to unleash the full potential of your 
-                investments. So, let's embark on this financial 
-                adventure together and make your dreams a reality!
-                <br>
-                <br>
-                Feel free to reach out to me at 
-                NyaaCat@nyaarockinvestments.com. 
-                I'm always here to lend a helping paw and guide 
-                you towards a prosperous future.
-                <br>
-                <br>
-                Stay curious, stay invested!
-                <br>
-                <br>
-                Nyaa Neko
-                <br>
-                CEO & Founder
-                <br>
-                Nyaarock Investments
-              </p>
-            </mat-card>
-          </mat-card-content>
-          <mat-divider></mat-divider>
-          <mat-card-content>
-            <p><button (click)="sendEmail()" class="button">Contact</button></p>
-            <p><button routerLink="/map" class="button">Office Location</button></p>
-          </mat-card-content>
+          <h2>Nyaa Cat</h2>
+          <h3 class="title">
+            <mat-chip (click)="openDialog('3000ms', '500ms')">
+              CEO & Founder
+            </mat-chip>
+          </h3>
+          <p style="text-align: justify;">Meow and welcome to
+            Nyaarock Investments! I'm Nyaa Cat, the purr-sident
+            and CEO of this prestigious investment firm. With my
+            feline intuition and keen eye for opportunities,
+            I lead a team of financial experts on a mission
+            to guide you towards financial freedom.
+            <br>
+            <br>
+            At Nyaarock Investments, we believe in tailoring
+            investment strategies to your unique needs.
+            Whether you're a savvy investor or just starting
+            your financial journey, we're here to provide expert
+            advice and create a pawsitive investment experience
+            for you.
+            <br>
+            <br>
+            Our dedication to excellence and unrivaled
+            commitment to our clients sets us apart.
+            We pride ourselves on staying ahead of
+            the pack by analyzing market trends, hunting
+            for the best investment opportunities, and
+            ensuring your investments are well-nurtured.
+            <br>
+            <br>
+            With a proven track record and a purrfect
+            blend of professionalism and passion, we're
+            ready to unleash the full potential of your
+            investments. So, let's embark on this financial
+            adventure together and make your dreams a reality!
+            <br>
+            <br>
+            Feel free to reach out to me at
+            NyaaCat@nyaarockinvestments.com.
+            I'm always here to lend a helping paw and guide
+            you towards a prosperous future.
+            <br>
+            <br>
+            Stay curious, stay invested!
+            <br>
+            <br>
+            Nyaa Cat,
+            <br>
+            CEO & Founder
+            <br>
+            Nyaarock Investments
+          </p>
         </mat-card>
-      </div>
-    </div>
-    <div class="flex">
-      <div class="m-auto">
-        <mat-card>
-          <img src="./assets/img/dogeVP.png" style="width:100%; border-radius: 20px;" >
-          <mat-card-content>
-            <mat-card>
-              <h2>Shiba Inu</h2>
-              <h3 class="title">
-              <mat-chip (click)="openDialog('3000ms', '500ms')">
-                Chief Technology Officer
-              </mat-chip></h3>
-              <p style="text-align: justify;">Woof and greetings! 
-                I'm Shiba Inu, the Chief Technology Officer (CTO) of 
-                Nyaarock Investments. As the tech-savvy canine of the pack, 
-                I bring a wag-tastic blend of innovation and expertise 
-                to our investment strategies.
-
-                At Nyaarock Investments, we embrace the power of technology
-                to stay ahead in the ever-changing financial landscape. 
-                With my paw-some team of tech wizards, we harness the latest
-                advancements to optimize investment processes, analyze data, 
-                and deliver cutting-edge solutions.
-                
-                From developing robust trading algorithms to enhancing our 
-                digital platforms, we're committed to providing you with a 
-                seamless and user-friendly investment experience. Our goal 
-                is to fetch the most accurate insights and empower you with 
-                the information you need to make informed investment decisions.
-                
-                With a strong barkground in financial technology and a passion 
-                for creating a digital ruffvolution, we're here to make investing 
-                accessible, efficient, and rewarding for all our clients. 
-                Whether you're a novice or an experienced investor, our 
-                technology-driven approach will guide you towards success.
-                
-                If you have any questions or need assistance, feel free to reach 
-                out to me at ShibaInu@nyaarockinvestments.com. I'm always wagging 
-                my tail in excitement to help you leverage technology for your financial goals.
-                
-                Together, let's embrace the digital era and embark on an adventure 
-                of wealth-building and tail-wagging success!
-                
-                Bark regards,
-                Shiba Inu
-                Chief Technology Officer (CTO)
-                Nyaarock Investments</p>
-              <p>ShibaInu@nyaarockinvestments.com</p>
-            </mat-card>
-          </mat-card-content>
-          <mat-divider></mat-divider>
-          <mat-card-content>
-            <p><button (click)="sendEmail()" class="button">Contact</button></p>
-            <p><button routerLink="/map" class="button">Office Location</button></p>
-          </mat-card-content>
-          
-        </mat-card>
-      </div>
-    </div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p><button (click)="sendEmail()" class="button">Contact</button></p>
+        <p><button routerLink="/map" class="button">Office Location</button></p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
-
-<!-- 
-<div class="row">
-  <div class="column">
-    <div class="card">
-      <img src="./assets/img/catCEO.png" style="width:100%">
-      <div class="container">
-        <h2>Nyaa Neko</h2>
-        <p class="title">CEO & Founder</p>
-        <p>Meow meow meow</p>
-        <p>NyaaCat@nyaarockinvestments.com</p>
+<div class="flex">
+  <div class="m-auto">
+    <mat-card>
+      <img src="./assets/img/dogeVP.png" style="width:100%; border-radius: 20px;">
+      <mat-card-content>
+        <mat-card>
+          <h2>Shiba Inu</h2>
+          <h3 class="title">
+            <mat-chip (click)="openDialog('3000ms', '500ms')">
+              Chief Technology Officer
+            </mat-chip>
+          </h3>
+          <p style="text-align: justify;">Woof and greetings!
+            I'm Shiba Inu, the Chief Technology Officer (CTO) of
+            Nyaarock Investments. As the tech-savvy canine of the pack,
+            I bring a wag-tastic blend of innovation and expertise
+            to our investment strategies.
+            <br>
+            <br>
+            At Nyaarock Investments, we embrace the power of technology
+            to stay ahead in the ever-changing financial landscape.
+            With my paw-some team of tech wizards, we harness the latest
+            advancements to optimize investment processes, analyze data,
+            and deliver cutting-edge solutions.
+            <br>
+            <br>
+            From developing robust trading algorithms to enhancing our
+            digital platforms, we're committed to providing you with a
+            seamless and user-friendly investment experience. Our goal
+            is to fetch the most accurate insights and empower you with
+            the information you need to make informed investment decisions.
+            <br>
+            <br>
+            With a strong barkground in financial technology and a passion
+            for creating a digital ruffvolution, we're here to make investing
+            accessible, efficient, and rewarding for all our clients.
+            Whether you're a novice or an experienced investor, our
+            technology-driven approach will guide you towards success.
+            <br>
+            <br>
+            If you have any questions or need assistance, feel free to reach
+            out to me at ShibaInu@nyaarockinvestments.com. I'm always wagging
+            my tail in excitement to help you leverage technology for your financial goals.
+            <br>
+            <br>
+            Together, let's embrace the digital era and embark on an adventure
+            of wealth-building and tail-wagging success!
+            <br>
+            <br>
+            Bark regards,
+            <br>
+            Shiba Inu
+            <br>
+            Chief Technology Officer (CTO)
+            <br>
+            Nyaarock Investments
+          </p>
+        </mat-card>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-content>
         <p><button (click)="sendEmail()" class="button">Contact</button></p>
         <p><button routerLink="/map" class="button">Office Location</button></p>
-      </div>
-    </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-
-  <div class="column">
-    <div class="card">
-      <img src="./assets/img/dogeVP.png" style="width:100%">
-      <div class="container">
-        <h2>Shiba Inu</h2>
-        <p class="title">Chief Technology Officer</p>
-        <p>Woof woof woof</p>
-        <p>ShibaInu@nyaarockinvestments.com</p>
-        <p><button (click)="sendEmail()" class="button">Contact</button></p>
-        <p><button routerLink="/map" class="button">Office Location</button></p>
-      </div>
-    </div>
-  </div> -->
+</div>

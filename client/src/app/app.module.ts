@@ -26,6 +26,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { MultiplyPipe } from './multiply.pipe';
 import { MemeComponent } from './components/meme/meme.component';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { PaypalComponent } from './components/paypal/paypal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { MemeComponent } from './components/meme/meme.component';
     OverviewComponent,
     ChartsComponent,
     MultiplyPipe,
-    MemeComponent
+    MemeComponent,
+    PaypalComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { MemeComponent } from './components/meme/meme.component';
     ChartModule,
     GoogleMapsModule,
     ChartModule,
+    NgxPayPalModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

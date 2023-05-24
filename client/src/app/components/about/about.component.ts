@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-
 import { AuthService } from 'src/app/services/auth.service';
 import { EmailService } from 'src/app/services/email.service';
-import { MapComponent } from '../map/map.component';
-import { PortfolioComponent } from '../portfolio/portfolio.component';
 import { MemeComponent } from '../meme/meme.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { PaypalComponent } from '../paypal/paypal.component';
 
 @Component({
   selector: 'app-about',
@@ -14,17 +13,19 @@ import { MemeComponent } from '../meme/meme.component';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-
+  
   mapOptions!: google.maps.MapOptions;
   markerOptions!: google.maps.MarkerOptions;
-
+  
   constructor(
     private router: Router,
     private authSvc: AuthService,
     private emailSvc: EmailService,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog,
+    private _bottomSheet: MatBottomSheet) {}
 
   ngOnInit(): void {
+    
     this.mapOptions = {
       center: { lat: 1.292056, lng: 103.776512 }, // Set the initial map center
       zoom: 15 // Set the initial zoom level
@@ -53,4 +54,10 @@ export class AboutComponent implements OnInit {
       exitAnimationDuration,
     });
   }
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(PaypalComponent);
+  }
+
+  
 }
