@@ -1,21 +1,3 @@
-<!-- <div *ngIf="errorMsg">
-    {{ errorMsg }}
-</div>
-<div *ngIf="stockSymbol.length <= 0; else list">
-    
-    <div class="outerbox">
-        <table class="stock-table">
-            <tr>
-                <th>Oh no! You do not have any stocks in the list.
-                    <br>
-                    Try using the search function to add some stocks.
-                </th>
-                <th></th>  
-            </tr>
-        </table>
-    </div>
-</div> -->
-
 <div *ngIf="stockSymbol.length <= 0; else list">
     <mat-card>
         <mat-card-content>

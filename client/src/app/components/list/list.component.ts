@@ -9,7 +9,7 @@ import { StockService } from 'src/app/services/stock.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit{
+export class ListComponent implements OnInit {
 
   stockName = "";
   param$!: Subscription;
@@ -18,30 +18,27 @@ export class ListComponent implements OnInit{
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private stockSvc: StockService, 
+    private stockSvc: StockService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.param$ = this.activatedRoute.params.subscribe(
       async (params) => {
         this.stockName = params['stockName'];
-        // console.log('[ngOnInit] >>> this.stockName = ' + this.stockName);
         await this.stockSvc.getStocks(this.stockName)
-        .then(response => {
-          // console.log("response from get stockoverview >>> ", response)
-          this.stocks=(response);
-          if(this.stocks.length == 0){
+          .then(response => {
+            this.stocks = (response);
+            if (this.stocks.length == 0) {
+              this.router.navigate(['/search'])
+              window.alert("The stock you have selected cannot be found")
+            }
+          }).catch((error) => {
             this.router.navigate(['/search'])
             window.alert("The stock you have selected cannot be found")
-          }
-        }).catch((error) => {
-          this.router.navigate(['/search'])
-          window.alert("The stock you have selected cannot be found")
-          console.error(error)
-        })
-      } 
+            console.error(error)
+          })
+      }
     );
-
   }
 
   ngOnDestroy(): void {

@@ -1,11 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Chart } from 'angular-highcharts';
-import { StockPriceMonthly } from 'src/app/models/stockpricemonthly';
 import { StockService } from 'src/app/services/stock.service';
 import * as Highcharts from 'highcharts';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-charts',
@@ -61,8 +56,8 @@ export class ChartsComponent implements OnInit {
         name: 'Price',
         type: 'line',
         data: priceData,
-        color: '#b103fc',
-        animation: { duration: 2000 },
+        color: '#65209e',
+        animation: { duration: 1500 },
         dataLabels: {
           enabled: true,
           borderRadius: 2,
@@ -73,6 +68,10 @@ export class ChartsComponent implements OnInit {
       }]
     });
     Highcharts.chart('chart-container2', {
+      lang: {
+        numericSymbols: [' millions'],
+        numericSymbolMagnitude: 1000000
+      },
       title: {
         text: `Volume Traded for ${symbol}`
       },
@@ -81,21 +80,22 @@ export class ChartsComponent implements OnInit {
       },
       yAxis: [{
         title: {
-          text: 'Volume Traded',
+          text: 'Volume',
         }
       }],
       tooltip: {
-        shared: true
+        shared: false
       },
       series: [
         {
           name: 'volume',
           type: 'column',
           data: volumeData,
-          color: '#b103fc',
-          animation: { duration: 2000 },
-          dataLabels: { 
-            enabled: true}
+          color: '#65209e',
+          animation: { duration: 1500 },
+          dataLabels: {
+            enabled: true
+          }
         }]
     });
   }

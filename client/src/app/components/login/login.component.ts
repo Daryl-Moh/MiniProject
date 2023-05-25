@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup
   isLoggedIn: boolean = false
   isLoading: boolean = false;
-  
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         .catch(error => {
           console.error(error)
           window.alert("Invalid Login Credentials")
-          this.router.navigate(['/']).then(()=>{
+          this.router.navigate(['/']).then(() => {
             window.location.reload()
           })
         })

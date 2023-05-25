@@ -35,16 +35,12 @@ export class PortfolioComponent implements OnInit {
     this.isLoggedIn = this.authSvc.isLoggedIn
     if (!this.authSvc.isLoggedIn) {
       window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
-      this.router.navigate(['/login']).then(() => {
-        // window.location.reload()
-      })
+      this.router.navigate(['/login'])
     }
-    this.showValue()
+    this.populatePieChartData()
   }
 
-  showValue() {
-    // console.log("[portfolio] this.stockSymbol >>> ", this.stockSymbol)
-    // console.log("[portfolio] this.stockQuantity >>> ", this.stockQuantity)
+  populatePieChartData() {
     for (let i = 0; i < this.stockSymbol.length; i++) {
       const data = {
         name: this.stockSymbol[i],
@@ -55,7 +51,6 @@ export class PortfolioComponent implements OnInit {
   }
 
   pieChart = new Chart({
-
     chart: {
       type: 'pie',
       plotShadow: true
@@ -68,15 +63,18 @@ export class PortfolioComponent implements OnInit {
     },
     plotOptions: {
       pie: {
-        innerSize: '90%',
-        borderWidth: 2,
+        allowPointSelect: true,
+        innerSize: '85%',
+        borderWidth: 1,
         borderColor: 'black',
         slicedOffset: 10,
         animation: {
-          defer: 500
+          duration: 1500
         },
         dataLabels: {
-          connectorWidth: 2,
+          enabled: true,
+          connectorWidth: 3,
+          format: '{point.name}: {y} units'
         },
       },
     },

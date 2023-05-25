@@ -1,66 +1,3 @@
-<!-- <div class="flex">
-  <div class="m-auto">
-    <mat-card *ngIf="stockOverview">
-      <mat-card-header>
-        <mat-card-title>Stock Overview</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <app-charts [stockName]="stockName"></app-charts>
-        <br>
-        <p>Name: {{ stockOverview.name }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Description: {{ stockOverview.description }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Exchange: {{ stockOverview.exchange }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Country: {{ stockOverview.country }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Sector: {{ stockOverview.sector }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Industry: {{ stockOverview.industry }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Market Capitalization: {{ stockOverview.marketCap }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Dividend Per Share: {{ stockOverview.dividendPerShare }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Dividend Yield: {{ stockOverview.dividendYield }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>52 Week High: {{ stockOverview.fiftyTwoWeekHigh }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>52 Week Low: {{ stockOverview.fiftyTwoWeekLow }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <p>Shares Outstanding: {{ stockOverview.sharesOutstanding }}</p>
-        <mat-divider></mat-divider>
-        <br>
-        <div>
-          <form [formGroup]="quantityForm" (ngSubmit)="addToPortfolio()">
-            <mat-form-field>
-              <mat-label>Please enter quantity:</mat-label>
-              <input matInput type="number" formControlName="quantity" required>
-              <mat-error *ngIf="quantityForm.invalid">Minimum quantity is 1</mat-error>
-            </mat-form-field>
-            <br>
-            <mat-divider></mat-divider>
-            <br>
-            <button mat-raised-button type="submit" [disabled]="quantityForm.invalid">Add to portfolio</button>
-          </form>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div> -->
-
 <div class="flex">
   <div class="m-auto">
       <mat-card *ngIf="stockOverview">
@@ -74,12 +11,12 @@
               <p class="detail"><strong>Country:</strong> {{ stockOverview.country }}</p>
               <p class="detail"><strong>Sector:</strong> {{ stockOverview.sector }}</p>
               <p class="detail"><strong>Industry:</strong> {{ stockOverview.industry }}</p>
-              <p class="detail"><strong>Market Capitalization:</strong> {{ stockOverview.marketCap }}</p>
-              <p class="detail"><strong>Dividend Per Share:</strong> {{ stockOverview.dividendPerShare }}</p>
-              <p class="detail"><strong>Dividend Yield:</strong> {{ stockOverview.dividendYield }}</p>
-              <p class="detail"><strong>52 Week High:</strong> {{ stockOverview.fiftyTwoWeekHigh }}</p>
-              <p class="detail"><strong>52 Week Low:</strong> {{ stockOverview.fiftyTwoWeekLow }}</p>
-              <p class="detail"><strong>Shares Outstanding:</strong> {{ stockOverview.sharesOutstanding }}</p>
+              <p class="detail"><strong>Market Capitalization:</strong> {{ stockOverview.marketCap | number:'1.0':'en-US'  }}</p>
+              <p class="detail"><strong>Dividend Per Share:</strong> ${{ stockOverview.dividendPerShare | number:'.2' }}</p>
+              <p class="detail"><strong>Dividend Yield:</strong> {{ stockOverview.dividendYield | number:'.2' }}%</p>
+              <p class="detail"><strong>52 Week High:</strong> ${{ stockOverview.fiftyTwoWeekHigh | number:'.2' }}</p>
+              <p class="detail"><strong>52 Week Low:</strong> ${{ stockOverview.fiftyTwoWeekLow | number:'.2' }}</p>
+              <p class="detail"><strong>Shares Outstanding:</strong> {{ stockOverview.sharesOutstanding | number:'1.0':'en-US'  }}</p>
             </div>
             <mat-divider></mat-divider>
             <form [formGroup]="quantityForm" (ngSubmit)="addToPortfolio()" class="add-portfolio-form">

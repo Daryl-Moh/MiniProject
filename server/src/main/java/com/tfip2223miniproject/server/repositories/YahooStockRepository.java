@@ -22,7 +22,7 @@ public class YahooStockRepository {
 
         System.out.println("hitting YahooStockRepo stockName >>> " + stockName);
 
-        Criteria criterial = Criteria.where(STOCK_SYMBOL).regex(stockName, "i");
+        Criteria criterial = Criteria.where(STOCK_SYMBOL).is(stockName);
         Query query = Query.query(criterial);
 
         System.out.println("hitting YahooStockRepo criterial >>> " + criterial);
