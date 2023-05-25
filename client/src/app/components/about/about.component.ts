@@ -26,14 +26,6 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.mapOptions = {
-      center: { lat: 1.292056, lng: 103.776512 }, // Set the initial map center
-      zoom: 15 // Set the initial zoom level
-    }
-    this.markerOptions = { 
-      position: { lat: 1.292056, lng: 103.776512 },
-      animation: google.maps.Animation.BOUNCE
-    }
   }
 
   sendEmail(): void {
@@ -58,6 +50,4 @@ export class AboutComponent implements OnInit {
   openBottomSheet(): void {
     this._bottomSheet.open(PaypalComponent);
   }
-
-  
 }
