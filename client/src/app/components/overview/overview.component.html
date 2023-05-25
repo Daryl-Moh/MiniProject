@@ -63,7 +63,7 @@
 
 <div class="flex">
   <div class="m-auto">
-      <mat-card>
+      <mat-card *ngIf="stockOverview">
           <mat-card-content>
             <app-charts [stockName]="stockName"></app-charts>
             <mat-divider></mat-divider>
