@@ -5,12 +5,11 @@
 </div>
 <div class="flex">
     <div class="m-auto">
-
         <mat-nav-list>
             <a mat-list-item *ngFor="let s of stocks" [routerLink]="['/overview', s.symbol]">
                 <mat-card>
                     <mat-card-content>
-                        <span matListItemTitle> Stock Symbol: {{s.symbol}}</span>
+                        <span matListItemTitle><strong>Stock Symbol: {{s.symbol}}</strong></span>
                         <span matListItemLine> Name: {{s.name}}</span>
                         <span matListItemLine> Type: {{s.type}}</span>
                         <span matListItemLine> Region: {{s.region}}</span>
@@ -19,6 +18,5 @@
                 </mat-card>
             </a>
         </mat-nav-list>
-
     </div>
 </div>

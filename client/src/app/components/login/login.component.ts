@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -45,15 +46,37 @@ export class LoginComponent implements OnInit {
         .then(response => {
           console.log(response)
           localStorage.setItem("jwt", response['jwt'])
-          this.router.navigate(['/home'])
+          Swal.fire({
+            title: 'Login Sucessful',
+            text: "Welcome Back " + this.authSvc.givenname,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Confirm'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/home'])
+              } else {
+                this.router.navigate(['/home'])
+              }
+            })
           this.isLoggedIn = this.authSvc.isLoggedIn
         })
         .catch(error => {
           console.error(error)
-          window.alert("Invalid Login Credentials")
-          this.router.navigate(['/login']).then(() => {
-            window.location.reload()
-          })
+          Swal.fire({
+            title: 'Login Failed',
+            text: "E-mail or Password may be incorrect",
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Try Again'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/login']).then(() => {
+                window.location.reload();})
+              } else {
+                this.router.navigate(['/login']).then(() => {
+                  window.location.reload();})
+              }
+            })
         })
     }, 1500);
   }
