@@ -63,7 +63,6 @@ export class StockService {
         console.log('[getStockPriceMonthly] >>> params = ' + params);
         console.log('[getStockPriceMonthly] >>> headers = ' + headers);
 
-
         return lastValueFrom(this.httpClient
             .get<StockPriceMonthly>(this.API_URI + "/pricemonthly", { params: params, headers: headers }));
 
@@ -73,36 +72,21 @@ export class StockService {
         const params = new HttpParams()
             .set("userID", userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        // console.log('[getUserStocks] >>> jwt = ' + this.authSvc.JWT);
-        // console.log('[getUserStocks] >>> params = ' + params);
-        // console.log('[getUserStocks] >>> headers = ' + headers);
 
         return lastValueFrom(this.httpClient
             .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers }));
     }
 
-    // getUserStocksArray(userID: string): Promise<Portfolio> {
-    //     const params = new HttpParams()
-    //         .set("userID", userID.trim());
-    //     const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-    //     console.log('[getUserStocksArray] >>> jwt = ' + this.authSvc.JWT);
-    //     console.log('[getUserStocksArray] >>> params = ' + params);
-    //     console.log('[getUserStocksArray] >>> headers = ' + headers);
-
-    //     return lastValueFrom(this.httpClient
-    //         .get<Portfolio>(this.API_URI + "/retrieve", { params: params, headers: headers }));
-    // }
-
-    savePortfolio(p: Portfolio): Promise<any> {
+    savePortfolio(userID: String): Promise<any> {
         const params = new HttpParams()
-            .set("userID", p.userID.trim());
+            .set("userID", userID.trim());
         const headers = new HttpHeaders().set("Authorization", `Bearer ${this.authSvc.JWT}`);
-        const body = JSON.stringify(p);
         console.log('[savePortfolio] >>> jwt = ' + this.authSvc.JWT);
         console.log('[savePortfolio] >>> params = ' + params);
         console.log('[savePortfolio] >>> headers = ' + headers);
+        
         return lastValueFrom(this.httpClient
-            .post<Portfolio>(this.API_URI + "/save" + p.userID, { params: params, headers: headers }));
+            .post<String>(this.API_URI + "/save", null, { params: params, headers: headers }));
     }
 
     updatePortfolio(p: Portfolio): Promise<any> {
@@ -135,7 +119,8 @@ export class StockService {
         const url = `${this.API_URI}/addstocktoportfolio?${params.toString()}`;
         console.log('[addToPortfolio] >>> url = ', url);
 
-        return lastValueFrom(this.httpClient.put<String>(url, null, { headers: headers}));
+        return lastValueFrom(this.httpClient
+            .put<String>(this.API_URI + "/addstocktoportfolio", null, { params: params, headers: headers}));
     }
 
     removeFromPortfolio(userID: string, stockName: string): Promise<any> {
@@ -151,8 +136,7 @@ export class StockService {
         const url = `${this.API_URI}/removestockfromportfolio?${params.toString()}`;
         console.log('[addToPortfolio] >>> url = ', url);
 
-        
         return lastValueFrom(this.httpClient
-            .put<any>(url, null,  { headers: headers }));
+            .put<any>(this.API_URI + "/removestockfromportfolio", null,  { params: params, headers: headers }));
     }
 }

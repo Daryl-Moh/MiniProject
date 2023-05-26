@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StockService } from 'src/app/services/stock.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,9 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authSvc: AuthService,
-    private _ngZone: NgZone) { }
+    private stockSvc: StockService,
+    private _ngZone: NgZone,
+    ) { }
 
   ngOnInit(): void {
     this.registerForm = this.createForm()
@@ -45,6 +48,7 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
+        this.stockSvc.savePortfolio(email)
         this.router.navigate(['/home'])
       })
       .catch(error => {

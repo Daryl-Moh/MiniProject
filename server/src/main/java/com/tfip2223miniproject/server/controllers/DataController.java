@@ -105,11 +105,10 @@ public class DataController {
 
     @PostMapping(path = "/save")
     public ResponseEntity<String> saveUserPortfolio(
-            @RequestBody Portfolio portfolio,
+            @RequestHeader(name = "Authorization") String token,
             @RequestParam(required = true) String userID) {
 
         System.out.println("Hitting the @PostMapping userID >>> " + userID );
-        System.out.println("Hitting the @PostMapping portfolio >>> " + portfolio);
 
         List<Document> result = this.stockSvc.getUserStocks(userID);
 
@@ -118,7 +117,7 @@ public class DataController {
         if (result.isEmpty()) {
             Portfolio p1 = new Portfolio();
             p1.setUserID(userID);
-            p1.setPortfolioStocks(portfolio.getPortfolioStocks());
+            p1.setPortfolioStocks(null);
             this.stockSvc.insertPortfolio(p1);
             return ResponseEntity
                     .status(HttpStatus.OK)
