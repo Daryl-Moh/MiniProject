@@ -19,19 +19,9 @@ public class YahooStockRepository {
     private MongoTemplate mongoTemplate;
 
     public List<YahooStock> getStockPrice(String stockName) {
-
-        System.out.println("hitting YahooStockRepo stockName >>> " + stockName);
-
         Criteria criterial = Criteria.where(STOCK_SYMBOL).is(stockName);
         Query query = Query.query(criterial);
-
-        System.out.println("hitting YahooStockRepo criterial >>> " + criterial);
-        System.out.println("hitting YahooStockRepo query >>> " + query);
-
         List<YahooStock> result = mongoTemplate.find(query, YahooStock.class, STOCKINFO_COL);
-
-        System.out.println("hitting YahooStockRepo result >>> " + result);
-
         return result;
     }
     

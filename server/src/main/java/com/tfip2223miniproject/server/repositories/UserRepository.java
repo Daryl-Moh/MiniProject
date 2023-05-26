@@ -23,7 +23,6 @@ public class UserRepository implements SQLQueries {
     private JdbcTemplate template;
 
     public Integer insertUser(User user) throws DuplicateEmailException {
-        // System.out.println("PASSWORD>>>>>>>>" + user.getPassword());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             template.update(connection -> {
@@ -33,7 +32,6 @@ public class UserRepository implements SQLQueries {
                 ps.setString(3, user.getEmail());
                 ps.setString(4, user.getPassword());
                 ps.setString(5, user.getRole().name());
-                //ps.setBoolean(6, user.getIsGoogleLogin());
                 return ps;
             }, keyHolder);
         } catch (DataIntegrityViolationException e) {

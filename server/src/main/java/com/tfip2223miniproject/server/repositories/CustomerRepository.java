@@ -16,7 +16,6 @@ import static com.tfip2223miniproject.server.Constants.*;
 
 import java.util.List;
 
-
 @Repository
 public class CustomerRepository {
 
@@ -31,9 +30,7 @@ public class CustomerRepository {
 
         Criteria criterial = Criteria.where(USER_ID).regex(userID, "i");
         Query query = Query.query(criterial);
-
         List<Document> result = mongoTemplate.find(query, Document.class, PORTFOLIO_COL);
-
         return result;
     }
 
@@ -51,10 +48,8 @@ public class CustomerRepository {
     public Boolean addStockToPortfolio(Portfolio p) {
         Query query = new Query(Criteria.where(USER_ID).is(p.getUserID()));
         Update update = new Update().push("portfolioStocks", p.getPortfolioStocks().get(0));
-        System.out.println("p.getPortfolioStocks() >>> " + p.getPortfolioStocks());
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, Portfolio.class);
         Long modifiedRows = updateResult.getModifiedCount();
-        System.out.println("updateResult >>> " + updateResult);
         if (modifiedRows != 1) {
             return false;
         }
@@ -63,18 +58,9 @@ public class CustomerRepository {
 
     public Boolean removeStockFromPortfolio(String userID, String stockSymbol) {
         Query query = new Query(Criteria.where(USER_ID).is(userID));
-        // Update update = new Update().pull("stockSymbol", stockSymbol);
         Update update = new Update().pull("portfolioStocks", new BasicDBObject("stockSymbol", stockSymbol));
-
-        System.out.println("CustomerRepo, userID >>> " + userID);
-        System.out.println("CustomerRepo, stockSymbol >>> " + stockSymbol);
-
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, PORTFOLIO_COL);
         Long modifiedRows = updateResult.getModifiedCount();
-
-        System.out.println("CustomerRepo, updateResult >>> " + updateResult);
-        System.out.println("CustomerRepo, modifiedRows >>> " + modifiedRows);
-
         if (modifiedRows != 1) {
             return false;
         }

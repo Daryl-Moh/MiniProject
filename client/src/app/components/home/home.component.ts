@@ -68,9 +68,13 @@ export class HomeComponent implements OnInit {
             confirmButtonText: 'Confirm'
           }).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigate(['/home'])
+              this.router.navigate(['/home']).then(() => {
+                location.reload()
+              })
             } if (result.isDismissed) {
-              this.router.navigate(['/home'])
+              this.router.navigate(['/home']).then(() => {
+                location.reload()
+              })
             }
           })
         })

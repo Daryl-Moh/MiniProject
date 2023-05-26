@@ -14,7 +14,6 @@ public class PortfolioStock {
     private Integer quantity;
 
     public JsonObject toJSON() {
-
         return Json.createObjectBuilder()
                 .add("stockSymbol", getStockSymbol())
                 .add("quantity", getQuantity())

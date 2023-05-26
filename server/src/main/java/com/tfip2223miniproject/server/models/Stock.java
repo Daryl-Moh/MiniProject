@@ -24,7 +24,6 @@ public class Stock implements Serializable {
         stk.setType(obj.getString("3. type"));
         stk.setRegion(obj.getString("4. region"));
         stk.setCurrency(obj.getString("8. currency"));
-        
         return stk;
     }
 }

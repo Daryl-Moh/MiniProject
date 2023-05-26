@@ -41,7 +41,6 @@ public class StockOverview implements Serializable {
         stkovr.setFiftyTwoWeekHigh(Float.parseFloat(obj.getString("52WeekHigh")));
         stkovr.setFiftyTwoWeekLow(Float.parseFloat(obj.getString("52WeekLow")));
         stkovr.setSharesOutstanding(Float.parseFloat(obj.getString("SharesOutstanding")));
-
         return stkovr;
     }
 

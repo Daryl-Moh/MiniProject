@@ -36,7 +36,6 @@ public class StockPriceMonthly implements Serializable {
         stockpricemonthly.volumeArray.add(Long.parseLong(obj.getJsonObject("Monthly Time Series").getJsonObject(LAST_DAY_OF_MONTHS_2023[2]).getString("5. volume")));
         stockpricemonthly.closeArray.add(Float.parseFloat(obj.getJsonObject("Monthly Time Series").getJsonObject(LAST_DAY_OF_MONTHS_2023[3]).getString("4. close")));
         stockpricemonthly.volumeArray.add(Long.parseLong(obj.getJsonObject("Monthly Time Series").getJsonObject(LAST_DAY_OF_MONTHS_2023[3]).getString("5. volume")));
-
         return stockpricemonthly;
     }
 

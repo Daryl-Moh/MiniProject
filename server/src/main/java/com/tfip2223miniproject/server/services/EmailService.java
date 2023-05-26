@@ -20,7 +20,7 @@ public class EmailService {
         message.setFrom(companyEmail);
         message.setTo(companyEmail);
         message.setSubject("Request for contact");
-        message.setText("Hi, \n\nI am interested to engage your company services. \n\nPlease contact me at: " + userEmail);
+        message.setText("Hi, \n\nI am interested to arrange a consultation. \n\nPlease contact me at: " + userEmail);
         mailSender.send(message);
         System.out.println("Email inquiry from " + userEmail + " sent to: " + companyEmail);
     }

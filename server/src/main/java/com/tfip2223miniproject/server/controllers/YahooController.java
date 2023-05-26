@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tfip2223miniproject.server.models.YahooStock;
 import com.tfip2223miniproject.server.repositories.YahooStockRepository;
-import com.tfip2223miniproject.server.services.YahooStockService;
 
 import io.jsonwebtoken.io.IOException;
 
@@ -25,29 +24,12 @@ import io.jsonwebtoken.io.IOException;
 public class YahooController {
 
     @Autowired
-    YahooStockService yahooStockSvc;
-
-    @Autowired
     YahooStockRepository yahooStockRepo;
 
     // Subscribed to the API but the next day the server side had error
     // and refused the endpoints that was crucial to my app.
     // Solution was to hardcode all the data in the db and use it as
     // a restapi endpoint to get stock prices. (stocks API expensive)
-
-    // @GetMapping(path = "/getprices")
-    // public ResponseEntity<String> getStockPrices(
-    // @RequestHeader(name = "Authorization") String token,
-    // @RequestParam(required = true) String stockName) throws IOException {
-
-    // Optional<YahooStock> optYahooStock =
-    // this.yahooStockSvc.getStockPrice(stockName);
-    // YahooStock results = optYahooStock.get();
-    // return ResponseEntity
-    // .status(HttpStatus.OK)
-    // .contentType(MediaType.APPLICATION_JSON)
-    // .body(Utils.toJSON(results).toString());
-    // }
 
     @GetMapping(path = "/getprices")
     public ResponseEntity<YahooStock> getStockPricesBackup(

@@ -23,7 +23,6 @@ public class StockGlobalQuote {
         stockglobalquote.setLatestTradingDay(tmpObj.getString("07. latest trading day"));
         stockglobalquote.setChange(Float.parseFloat(tmpObj.getString("09. change")));
         stockglobalquote.setChangePercent(tmpObj.getString("10. change percent"));
-        
         return stockglobalquote;
     }
 }

@@ -26,7 +26,6 @@ public class YahooStock implements Serializable {
         ystk.setAsk(Float.parseFloat(obj.getJsonNumber("ask").toString()));
         ystk.setTrailingAnnualDividendRate(Float.parseFloat(obj.getJsonNumber("trailingAnnualDividendRate").toString()));
         ystk.setTrailingAnnualDividendYield(Float.parseFloat(obj.getJsonNumber("trailingAnnualDividendYield").toString()));
-
         return ystk;
     }
 }

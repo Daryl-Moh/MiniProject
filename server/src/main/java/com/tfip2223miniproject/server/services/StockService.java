@@ -36,66 +36,40 @@ public class StockService {
     private String stockApiKey;
 
     public Optional<List<Stock>> getStocks(String stockName) throws IOException {
-
         ResponseEntity<String> resp = null;
         Optional<List<Stock>> listOfStocks = null;
-
-        // System.out.println("stockApiUrl >>> " + stockApiUrl);
-        // System.out.println("stockApiKey >>> " + stockApiKey);
-
         String stockListApiUrl = UriComponentsBuilder
                 .fromUriString(stockApiUrl)
                 .queryParam("function", "SYMBOL_SEARCH")
                 .queryParam("keywords", stockName.replaceAll(" ", "+"))
                 .queryParam("apikey", stockApiKey.trim())
                 .toUriString();
-
-        // System.out.println("stockApiUrl >>> " + stockListApiUrl);
-
         RestTemplate template = new RestTemplate();
-
         resp = template.getForEntity(stockListApiUrl, String.class);
-
-        // System.out.println("Response Body >>> " + resp);
-
         try {
             listOfStocks = Utils.createListOfStocks(resp.getBody());
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-
         return listOfStocks;
     }
 
     public Optional<StockOverview> getStockOverview (String stockName) throws IOException {
-
         ResponseEntity<String> resp = null;
         Optional<StockOverview> stkovr = null;
-
-        System.out.println("stockApiUrl >>> " + stockApiUrl);
-        System.out.println("stockApiKey >>> " + stockApiKey);
-
         String stockOverviewApiUrl = UriComponentsBuilder
                 .fromUriString(stockApiUrl)
                 .queryParam("function", "OVERVIEW")
                 .queryParam("symbol", stockName.replaceAll(" ", "+"))
                 .queryParam("apikey", stockApiKey.trim())
                 .toUriString();
-
-        System.out.println("stockOverviewApiUrl >>> " + stockOverviewApiUrl);
-
         RestTemplate template = new RestTemplate();
-
         resp = template.getForEntity(stockOverviewApiUrl, String.class);
-
-        System.out.println("Response Body >>> " + resp);
-
         try {
             stkovr = Utils.createStockOverview(resp.getBody());
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-        
         return stkovr;
     }
 
@@ -108,21 +82,13 @@ public class StockService {
                 .queryParam("symbol", stockName.replaceAll(" ", "+"))
                 .queryParam("apikey", stockApiKey.trim())
                 .toUriString();
-
-        System.out.println("stockGlobalQuoteApiUrl >>> " + stockGlobalQuoteApiUrl);
-
         RestTemplate template = new RestTemplate();
-
         resp = template.getForEntity(stockGlobalQuoteApiUrl, String.class);
-
-        System.out.println("Response Body >>> " + resp);
-
         try {
             stockglobalquote = Utils.createStockGlobalQuote(resp.getBody());
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-
         return stockglobalquote;
     }
 
@@ -135,21 +101,13 @@ public class StockService {
                 .queryParam("symbol", stockName.replaceAll(" ", "+"))
                 .queryParam("apikey", stockApiKey.trim())
                 .toUriString();
-
-        System.out.println("stockPriceMonthlyApiUrl >>> " + stockPriceMonthlyApiUrl);
-
         RestTemplate template = new RestTemplate();
-
         resp = template.getForEntity(stockPriceMonthlyApiUrl, String.class);
-
-        System.out.println("Response Body >>> " + resp);
-
         try {
             stockpricemonthly = Utils.createPriceMonthly(resp.getBody());
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
-        
         return stockpricemonthly;
     }
 
@@ -176,5 +134,4 @@ public class StockService {
     public Boolean removeStockFromPortfolio(String userID, String stockSymbol) {
         return custRepo.removeStockFromPortfolio(userID, stockSymbol);
     }
-
 }

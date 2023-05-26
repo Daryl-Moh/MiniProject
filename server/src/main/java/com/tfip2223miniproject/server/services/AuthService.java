@@ -25,21 +25,6 @@ public class AuthService {
         @Autowired
         private AuthenticationManager authManager;
 
-        // public JsonObject register(JsonObject request) throws DuplicateEmailException {
-        //         User newUser = User.builder()
-        //                         .givenname(request.getString("givenname"))
-        //                         .familyname(request.getString("familyname"))
-        //                         .email(request.getString("email"))
-        //                         .password(pwEncoder.encode(request.getString("password")))
-        //                         .role(Role.USER)
-        //                         .isGoogleLogin(request.getBoolean("isGoogleLogin"))
-        //                         .build();
-        //         System.out.println("newUser created");
-        //         userRepo.insertUser(newUser);
-        //         // give new user JWT
-        //         return jwtSvc.generateJWT(newUser);
-        // }
-
         public JsonObject register(JsonObject request) throws DuplicateEmailException {
                 User newUser = User.builder()
                                 .givenname(request.getString("givenname"))
@@ -48,9 +33,7 @@ public class AuthService {
                                 .password(pwEncoder.encode(request.getString("password")))
                                 .role(Role.USER)
                                 .build();
-                System.out.println("newUser created");
                 userRepo.insertUser(newUser);
-                // give new user JWT
                 return jwtSvc.generateJWT(newUser);
         }
 
@@ -59,10 +42,8 @@ public class AuthService {
                                 new UsernamePasswordAuthenticationToken(
                                                 request.getString("email"),
                                                 request.getString("password")));
-                // authenticated
                 User user = userRepo.getUserByEmail(request.getString("email"))
                                 .orElseThrow();
-                System.out.println("User Login Detected");
                 return jwtSvc.generateJWT(user);
 
         }
