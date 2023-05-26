@@ -56,7 +56,7 @@ public class AppConfig {
     @Bean
     public MongoTemplate createMongoTemplate() {
         MongoClient client = MongoClients.create(mongoUrl);
-        return new MongoTemplate(client, "miniproject");
+        return new MongoTemplate(client, "stock");
     }
 
 }
