@@ -32,21 +32,26 @@ public class YahooController {
     @Autowired
     YahooStockRepository yahooStockRepo;
 
+    // Subscribed to the API but the next day the server side had error
+    // and refused the endpoints that was crucial to my app. 
+    // Solution was to hardcode all the data in the db and use it as 
+    // a restapi endpoint to get stock prices. (stocks API expensive) 
+
+    // @GetMapping(path = "/getprices")
+    // public ResponseEntity<String> getStockPrices(
+    //         @RequestHeader(name = "Authorization") String token,
+    //         @RequestParam(required = true) String stockName) throws IOException {
+
+    //     Optional<YahooStock> optYahooStock = this.yahooStockSvc.getStockPrice(stockName);
+    //     YahooStock results = optYahooStock.get();
+    //     System.out.println("searching yahoo stock by name >>>" + stockName);
+    //     return ResponseEntity
+    //             .status(HttpStatus.OK)
+    //             .contentType(MediaType.APPLICATION_JSON)
+    //             .body(Utils.toJSON(results).toString());
+    // }
+
     @GetMapping(path = "/getprices")
-    public ResponseEntity<String> getStockPrices(
-            @RequestHeader(name = "Authorization") String token,
-            @RequestParam(required = true) String stockName) throws IOException {
-
-        Optional<YahooStock> optYahooStock = this.yahooStockSvc.getStockPrice(stockName);
-        YahooStock results = optYahooStock.get();
-        System.out.println("searching yahoo stock by name >>>" + stockName);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(Utils.toJSON(results).toString());
-    }
-
-    @GetMapping(path = "/getpricesbackup")
     public ResponseEntity<YahooStock> getStockPricesBackup(
             @RequestHeader(name = "Authorization") String token,
             @RequestParam(required = true) String stockName) throws IOException {

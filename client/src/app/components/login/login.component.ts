@@ -70,9 +70,14 @@ export class LoginComponent implements OnInit {
             confirmButtonText: 'Try Again'
           }).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigate(['/login'])
-            } else {
-              this.router.navigate(['/login'])
+              this.router.navigate(['/login']).then(() => {
+                location.reload()
+              })
+            } 
+            if (result.isDismissed) {
+              this.router.navigate(['/login']).then(() => {
+                location.reload()
+              })
             }
           })
         })
