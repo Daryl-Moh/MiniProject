@@ -4,6 +4,8 @@ WORKDIR '/app'
 
 COPY ./client .
 
+RUN npm install
+
 ENV PATH /app/node_modules/.bin:$PATH
 
 RUN ng build
