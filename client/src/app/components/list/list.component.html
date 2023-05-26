@@ -3,13 +3,22 @@
     <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
     <mat-divider></mat-divider>
 </div>
+<div class="flex">
+    <div class="m-auto">
 
-<mat-nav-list>
-    <a mat-list-item *ngFor="let s of stocks" [routerLink]="['/overview', s.symbol]">
-        <span matListItemTitle> Stock Symbol: {{s.symbol}}</span>
-        <span matListItemLine> Name: {{s.name}}</span>
-        <span matListItemLine> Type: {{s.type}}</span>
-        <span matListItemLine> Region: {{s.region}}</span>
-        <span matListItemLine> Currency: {{s.currency}}</span>
-    </a>
-</mat-nav-list>
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let s of stocks" [routerLink]="['/overview', s.symbol]">
+                <mat-card>
+                    <mat-card-content>
+                        <span matListItemTitle> Stock Symbol: {{s.symbol}}</span>
+                        <span matListItemLine> Name: {{s.name}}</span>
+                        <span matListItemLine> Type: {{s.type}}</span>
+                        <span matListItemLine> Region: {{s.region}}</span>
+                        <span matListItemLine> Currency: {{s.currency}}</span>
+                    </mat-card-content>
+                </mat-card>
+            </a>
+        </mat-nav-list>
+
+    </div>
+</div>

@@ -1,0 +1,27 @@
+mat-card {
+    padding: 20px;
+    width: auto;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    border: solid 1px;
+}
+
+.flex {
+    display: flex;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+mat-nav-list {
+    padding: 20px;
+    width: 500px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+}
+
+mat-divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
