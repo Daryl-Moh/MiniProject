@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { StockService } from 'src/app/services/stock.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -20,8 +21,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private authSvc: AuthService,
     private stockSvc: StockService,
-    private _ngZone: NgZone,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.registerForm = this.createForm()
@@ -48,22 +48,62 @@ export class RegisterComponent implements OnInit {
       .then(response => {
         console.log(response)
         localStorage.setItem("jwt", response['jwt'])
-        this.stockSvc.savePortfolio(email)
-        this.router.navigate(['/home'])
+        this.stockSvc.savePortfolio(email).finally(() => {
+          Swal.fire({
+            title: 'Registration Successful!',
+            text: "Welcome to Nyaa Rock Investments, " + this.authSvc.givenname,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Get Started'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/home'])
+            } else {
+              this.router.navigate(['/home'])
+            }
+          })
+        })
       })
       .catch(error => {
         console.error(error)
         if (error.status === 409) {
-          window.alert("This email has already been registered. Please try logging in instead.")
-          this._ngZone.run(() => {
-            this.router.navigate(['/login'])
+          Swal.fire({
+            title: 'Registration Failed',
+            text: "This e-mail has already been registered.",
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Login'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/login']).then(() => {
+                window.location.reload();
+              })
+            } else {
+              this.router.navigate(['/login']).then(() => {
+                window.location.reload();
+              })
+            }
           })
         } else {
-          console.warn(error)
-          window.alert(error['error'])
+          Swal.fire({
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Retry'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/register']).then(() => {
+                window.location.reload();
+              })
+            } else {
+              this.router.navigate(['/register']).then(() => {
+                window.location.reload();
+              })
+            }
+          })
         }
       })
   }
 }
-  
+
 

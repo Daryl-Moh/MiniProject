@@ -70,7 +70,7 @@ export class AuthService {
     logout() {
         localStorage.removeItem('jwt')
         console.log('jwt deleted from local storage')
-        this.router.navigate(['/login'])
+        //this.router.navigate(['/login'])
     }
 
 }

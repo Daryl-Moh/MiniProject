@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
           }).then((result) => {
             if (result.isConfirmed) {
               this.router.navigate(['/home'])
-              } else {
-                this.router.navigate(['/home'])
-              }
-            })
+            } if (result.isDismissed) {
+              this.router.navigate(['/home'])
+            }
+          })
           this.isLoggedIn = this.authSvc.isLoggedIn
         })
         .catch(error => {
@@ -70,13 +70,11 @@ export class LoginComponent implements OnInit {
             confirmButtonText: 'Try Again'
           }).then((result) => {
             if (result.isConfirmed) {
-              this.router.navigate(['/login']).then(() => {
-                window.location.reload();})
-              } else {
-                this.router.navigate(['/login']).then(() => {
-                  window.location.reload();})
-              }
-            })
+              this.router.navigate(['/login'])
+            } else {
+              this.router.navigate(['/login'])
+            }
+          })
         })
     }, 1500);
   }

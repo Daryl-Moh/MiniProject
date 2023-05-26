@@ -9,19 +9,16 @@
                         <input type="text" matInput formControlName="givenname">
                         <mat-error *ngIf="registerForm.invalid">First Name is mandatory</mat-error>
                     </mat-form-field>
-
                     <mat-form-field appearance="fill">
                         <mat-label>Family Name</mat-label>
                         <input type="text" matInput formControlName="familyname">
                         <mat-error *ngIf="registerForm.invalid">Last Name is mandatory</mat-error>
                     </mat-form-field>
-
                     <mat-form-field appearance="fill">
                         <mat-label>E-mail</mat-label>
                         <input type="email" matInput formControlName="email">
                         <mat-error *ngIf="registerForm.invalid">Please enter a valid e-mail</mat-error>
                     </mat-form-field>
-
                     <mat-form-field hintLabel="Min 8 characters" appearance="fill">
                         <mat-label>Password</mat-label>
                         <input type="password" matInput #input minlength="8" formControlName="password">
@@ -31,7 +28,8 @@
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-actions>
-                <button (click)="register()" color="accent" type="submit" mat-raised-button [disabled]="registerForm.invalid">
+                <button (click)="register()" color="accent" type="submit" mat-raised-button
+                    [disabled]="registerForm.invalid">
                     <mat-spinner *ngIf="isLoading" diameter="35"></mat-spinner>
                     <span *ngIf="!isLoading">Sign Up</span>
                 </button>
