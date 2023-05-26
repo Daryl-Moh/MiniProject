@@ -45,13 +45,13 @@ export class LoginComponent implements OnInit {
         .then(response => {
           console.log(response)
           localStorage.setItem("jwt", response['jwt'])
-          this.router.navigate(['/'])
+          this.router.navigate(['/home'])
           this.isLoggedIn = this.authSvc.isLoggedIn
         })
         .catch(error => {
           console.error(error)
           window.alert("Invalid Login Credentials")
-          this.router.navigate(['/']).then(() => {
+          this.router.navigate(['/login']).then(() => {
             window.location.reload()
           })
         })

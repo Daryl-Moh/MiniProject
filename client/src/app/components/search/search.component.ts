@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-search',
@@ -11,12 +12,15 @@ export class SearchComponent implements OnInit {
   form!: FormGroup
   stockName?: String
   isLoading: boolean = false;
+  isLoggedIn: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,) { }
+    private authSvc: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.checkLoggedIn()
     this.form = this.createForm();
   }
 
@@ -33,5 +37,15 @@ export class SearchComponent implements OnInit {
     return this.formBuilder.group({
       stockName: this.formBuilder.control('', [Validators.required]),
     })
+  }
+
+  checkLoggedIn(): void {
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (!this.authSvc.isLoggedIn) {
+      window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload()
+      })
+    }
   }
 }

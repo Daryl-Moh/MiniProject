@@ -17,6 +17,7 @@ export class OverviewComponent implements OnInit {
   stockName = ""
   param$!: Subscription
   stockOverview!: StockOverview
+  isLoggedIn: boolean = false
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +27,7 @@ export class OverviewComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.checkLoggedIn()
     this.quantityForm = this.createForm()
     this.param$ = this.activatedRoute.params.subscribe(
       async (params) => {
@@ -57,5 +59,15 @@ export class OverviewComponent implements OnInit {
     return this.fb.group({
       quantity: this.fb.control<number>(1, [Validators.required, Validators.min(1)])
     })
+  }
+
+  checkLoggedIn(): void {
+    this.isLoggedIn = this.authSvc.isLoggedIn
+    if (!this.authSvc.isLoggedIn) {
+      window.alert("[ ACESS DENIED ] \n You are not logged in yet.")
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload()
+      })
+    }
   }
 }

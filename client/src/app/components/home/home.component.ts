@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   stockPrice: number[] = []
   yahooStockList: YahooStocks[] = []
   param$!: Subscription;
-  isLoggedIn: boolean = false
+  isLoggedIn: boolean = false;
 
   constructor(
     private stockSvc: StockService,
@@ -78,7 +78,6 @@ export class HomeComponent implements OnInit {
       })
     }
   }
-
 }
 
 
