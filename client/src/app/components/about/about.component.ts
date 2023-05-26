@@ -53,8 +53,18 @@ export class AboutComponent implements OnInit {
       })
     } else {
       this.emailSvc.sendEmail(this.authSvc.userID)
-      window.alert("Thank you for your interest. \nWe will contact you within 3-5 business days.")
-      this.router.navigate(["/home"])
+      Swal.fire({
+        title: 'E-mail sent sucessfully',
+        text: "Thank you for your interest. We will contact you within 3-5 business days.",
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Done'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/about'])
+        } if (result.isDismissed) {
+          this.router.navigate(['/about'])
+        }
+      })
     }
   }
 

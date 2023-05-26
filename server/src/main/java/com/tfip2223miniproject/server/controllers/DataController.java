@@ -51,7 +51,6 @@ public class DataController {
         for (Stock s : results)
             arrBuilder.add(Utils.toJSON(s));
         result = arrBuilder.build();
-        System.out.println("searching stock name >>>" + stockName);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -65,7 +64,6 @@ public class DataController {
 
         Optional<StockOverview> optStockOverview = this.stockSvc.getStockOverview(stockName);
         StockOverview results = optStockOverview.get();
-        System.out.println("searching stock overview by name >>>" + stockName);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,7 +78,6 @@ public class DataController {
 
         Optional<StockGlobalQuote> optStockGlobalQuote = this.stockSvc.getStockGlobalQuote(stockName);
         StockGlobalQuote results = optStockGlobalQuote.get();
-        System.out.println("searching stock global quote by name >>>" + stockName);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -95,7 +92,6 @@ public class DataController {
 
         Optional<StockPriceMonthly> optStockPriceMonthly = this.stockSvc.getStockPriceMonthly(stockName);
         StockPriceMonthly results = optStockPriceMonthly.get();
-        System.out.println("searching stock global quote by name >>>" + stockName);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -108,12 +104,7 @@ public class DataController {
             @RequestHeader(name = "Authorization") String token,
             @RequestParam(required = true) String userID) {
 
-        System.out.println("Hitting the @PostMapping userID >>> " + userID );
-
         List<Document> result = this.stockSvc.getUserStocks(userID);
-
-        System.out.println("Hitting the @PostMapping portfolio >>> " + result);
-        
         if (result.isEmpty()) {
             Portfolio p1 = new Portfolio();
             p1.setUserID(userID);
@@ -135,8 +126,6 @@ public class DataController {
     public ResponseEntity<String> getUserStocks(
             @RequestParam(required = true) String userID) {
         List<Document> results = this.stockSvc.getUserStocks(userID);
-        System.out.println("retrieve data from userID >>> " + userID);
-        System.out.println("results >>> " + results);
         if (results.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
@@ -147,7 +136,7 @@ public class DataController {
                     .status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(results.get(0).toJson().toString());
-            
+
         }
     }
 
@@ -156,27 +145,20 @@ public class DataController {
             @RequestBody Portfolio portfolio,
             @RequestParam(required = true) String userID) {
 
-        System.out.println("Hitting the @PutMapping userID >>> " + userID );
-        System.out.println("Hitting the @PutMapping portfolio >>> " + portfolio);
-
         Portfolio p1 = new Portfolio();
         p1.setUserID(userID);
         p1.setPortfolioStocks(portfolio.getPortfolioStocks());
-
-        System.out.println("Hitting the @PostMapping p1 >>> " + p1);
-
         Boolean result = this.stockSvc.updatePortfolio(p1);
-        
         if (result == true) {
             return ResponseEntity
-            .status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("Portfolio Update Success!");
+                    .status(HttpStatus.OK)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("Portfolio Update Success!");
         } else {
             return ResponseEntity
-            .status(HttpStatus.BAD_REQUEST)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("Portfolio Update Failed!");
+                    .status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("Portfolio Update Failed!");
         }
     }
 
@@ -186,20 +168,15 @@ public class DataController {
             @RequestParam(required = true) String stockSymbol,
             @RequestParam(required = true) Integer quantity) {
 
-        System.out.println("Hitting the @PutMapping userID >>> " + userID );
-        System.out.println("Hitting the @PutMapping stockSymbol >>> " + stockSymbol);
-        System.out.println("Hitting the @PutMapping quantity >>> " + quantity);
-
-        Boolean result = this.stockSvc.addStockToPortfolio(userID, stockSymbol, quantity );
-        
+        Boolean result = this.stockSvc.addStockToPortfolio(userID, stockSymbol, quantity);
         if (result == true) {
             return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(Utils.toJSON("Add Stock to Portfolio Success!"));
+                    .status(HttpStatus.OK)
+                    .body(Utils.toJSON("Add Stock to Portfolio Success!"));
         } else {
             return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(Utils.toJSON("Add Stock to Portfolio Failed!"));
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Utils.toJSON("Add Stock to Portfolio Failed!"));
         }
     }
 
@@ -208,23 +185,15 @@ public class DataController {
             @RequestParam(required = true) String userID,
             @RequestParam(required = true) String stockSymbol) {
 
-        System.out.println("Hitting the @PutMapping userID >>> " + userID );
-        System.out.println("Hitting the @PutMapping stockSymbol >>> " + stockSymbol);
-
         Boolean result = this.stockSvc.removeStockFromPortfolio(userID, stockSymbol);
-
-        System.out.println("Hitting the @PutMapping result >>> " + result);
-        
         if (result == true) {
             return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(Utils.toJSON("Remove Stock from Portfolio Success!"));
+                    .status(HttpStatus.OK)
+                    .body(Utils.toJSON("Remove Stock from Portfolio Success!"));
         } else {
             return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(Utils.toJSON("Remove Stock from Portfolio Failed!"));
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(Utils.toJSON("Remove Stock from Portfolio Failed!"));
         }
     }
-
-
 }

@@ -17,23 +17,20 @@ import com.tfip2223miniproject.server.services.AuthService;
 import jakarta.json.JsonObject;
 
 @RestController
-@CrossOrigin(origins="*")
-@RequestMapping(path="/api/auth", produces=MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*")
+@RequestMapping(path = "/api/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
-    
+
     @Autowired
     private AuthService authSvc;
-    
-    // REGISTRATION
+
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> register(@RequestBody String request) {
-        // read JSON
+
         JsonObject jsonRequest = JsonUtil.toJson(request)
                 .asJsonObject();
-        // System.out.println("Register Request >>>>> " + jsonRequest);
         JsonObject jwt;
         try {
-            // save new user & get jwt
             jwt = authSvc.register(jsonRequest);
         } catch (DuplicateEmailException e) {
             System.err.println(e);
@@ -48,10 +45,8 @@ public class AuthController {
                 .body(jwt.toString());
     }
 
-    // LOG IN
     @PostMapping(path = "/login")
     public ResponseEntity<String> login(@RequestBody String request) {
-        // read JSON
         JsonObject jsonRequest = JsonUtil.toJson(request).asJsonObject();
         JsonObject jwt;
         jwt = authSvc.login(jsonRequest);
@@ -60,5 +55,4 @@ public class AuthController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(jwt.toString());
     }
-
 }

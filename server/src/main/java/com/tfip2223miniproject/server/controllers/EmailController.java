@@ -23,12 +23,10 @@ public class EmailController {
     @PostMapping(path="/send")
     public ResponseEntity<String> sendEmail(
         @RequestParam(required = true) String userEmail){
-            System.out.println("Hitting the @PostMapping userEmail >>> " + userEmail );
             emailSvc.sendEmail(userEmail);
             return ResponseEntity
             .status(HttpStatus.OK)
             .contentType(MediaType.APPLICATION_JSON)
             .body("E-mail sent successfully!");
         }
-
 }
