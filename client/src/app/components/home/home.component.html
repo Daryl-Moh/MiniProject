@@ -39,7 +39,7 @@
                 <th></th>
             </tr>
             <tr *ngFor="let y of yahooStockList; let i = index">
-                <td>{{ stockSymbol[i] }}</td>
+                <td>{{ y.symbol }}</td>
                 <td>{{ stockQuantity[i] }}</td>
                 <td>{{ y.currency }}</td>
                 <td>${{ y.ask | number:'.1-2'}}</td>
