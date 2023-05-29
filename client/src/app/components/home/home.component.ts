@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.checkLoggedIn()
     this.populateStockList()
+    this.getStockPrices()
   }
 
   getStockPrices(): void {
